@@ -1,93 +1,133 @@
-# Scientific colour maps
+# My Awesome Plugin - QGIS Plugin
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 
+[![flake8](https://img.shields.io/badge/linter-flake8-green)](https://flake8.pycqa.org/)
 
-## Getting started
+## Generated options
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### Plugin
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+> Here is a list of the options you picked when creating the plugin with the cookiecutter template.
 
-## Add your files
+| Cookiecutter option | Picked value |
+| :------------------ | :----------: |
+| Plugin name | My Awesome Plugin |
+| Plugin name slugified | my_awesome_plugin |
+| Plugin name class (used in code) | MyAwesomePlugin |
+| Plugin category | Database |
+| Plugin description short | This plugin is a revolution! |
+| Plugin description long | Extends QGIS with revolutionary features that every single GIS end-users was expected (or not)! |
+| Plugin tags | topic1,topic2 |
+| Plugin icon | default_icon.png |
+| Plugin with processing provider | False |
+| Author name | Firstname LASTNAME |
+| Author organization | Company |
+| Author email | qgis@company.com |
+| Minimum QGIS version | 3.40 |
+| Maximum QGIS version | 3.99 |
+| Support Qt6 | True |
+| Git repository URL | https://gitlab.com/Company/my_awesome_plugin/ |
+| Git default branch | main |
+| License | GPLv2+ |
+| Python linter | Flake8 |
+| CI/CD platform | GitHub |
+| Publish to <https://plugins.qgis.org> using CI/CD | True |
+| IDE | VSCode |
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Tooling
 
-```
-cd existing_repo
-git remote add origin https://gitlab.huma-num.fr/sthery/scientific-colour-maps.git
-git branch -M main
-git push -uf origin main
-```
+This project is configured with the following tools:
 
-## Integrate with your tools
+- [Black](https://black.readthedocs.io/en/stable/) to format the code without any existential question
+- [iSort](https://pycqa.github.io/isort/) to sort the Python imports
 
-- [ ] [Set up project integrations](https://gitlab.huma-num.fr/sthery/scientific-colour-maps/-/settings/integrations)
+Code rules are enforced with [pre-commit](https://pre-commit.com/) hooks.  
+Static code analysis is based on: Flake8
 
-## Collaborate with your team
+See also: [contribution guidelines](CONTRIBUTING.md).
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+## CI/CD
 
-## Test and Deploy
+Plugin is linted, tested, packaged and published with GitHub.
 
-Use the built-in continuous integration in GitLab.
+If you mean to deploy it to the [official QGIS plugins repository](https://plugins.qgis.org/), remember to set your OSGeo credentials (`OSGEO_USER_NAME` and `OSGEO_USER_PASSWORD`) as environment variables in your CI/CD tool.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-***
+### Documentation
 
-# Editing this README
+The documentation is located in `docs` subfolder, written in Markdown using [myst-parser](https://myst-parser.readthedocs.io/), structured in two main parts, Usage and Contribution, generated using Sphinx (have a look to [the configuration file](./docs/conf.py)) and is automatically generated through the CI and published on Pages: <https://gitlab.com/Company/my_awesome_plugin//pages> (see [post generation steps](#2-build-the-documentation-locally) below).
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+----
 
-## Suggestions for a good README
+## Next steps post generation
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### 1. Set up development environment
 
-## Name
-Choose a self-explaining name for your project.
+> Typical commands on Linux (Ubuntu).
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+1. If you didn't pick the `git init` option, initialize your local repository:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+    ```sh
+    git init
+    ```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+1. Follow the [embedded documentation to set up your development environment](./docs/development/environment.md) to create  virtual environment and install development dependencies.
+1. Add all files to git index to prepare initial commit:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+    ```sh
+    git add -A
+    ```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+1. Run the git hooks to ensure that everything runs OK and to start developing on quality standards:
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+    ```sh
+    # run all pre-commit hooks on all files
+    pre-commit run -a
+    # don't be shy, run it again until it's all green
+    ```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### 2. Adjust URL and build the documentation locally
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+> [!NOTE]
+> Since it's very hard to determine which the final documentation URL will be, the templater does not set it up. You have to do it manually.
+> The final URL should be something like this: <https://{user_org}.github.io/{project_slug}>. You can find it in Pages settings of your repository: <https://gitlab.com/Company/my_awesome_plugin//pages>.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+1. Have a look to the [plugin's metadata.txt file](my_awesome_plugin/metadata.txt): review it, complete it or fix it if needed (URLs, etc.)., especially the `homepage` URL which should be to your GitLab or GitHub Pages.
+1. Update the base URL of custom repository in [installation doc page](./docs/usage/installation.md).
+1. Change the plugin's icon stored in `my_awesome_plugin/resources/images`
+1. Follow the [embedded documentation to build plugin documentation locally](./docs/development/documentation.md)
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### 3. Prepare your remote repository
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+1. If you did not yet, create a remote repository on your Git hosting platform (GitHub, GitLab, etc.)
+1. Create labels listed in [labeler.yml file](.github/labeler.yml) to make PR auto-labelling work.
+1. Switch the source of GitHub Pages to `GitHub Actions` in your repository settings <https://gitlab.com/Company/my_awesome_plugin//pages>
+1. Add the remote repository to your local repository:
+
+    ```sh
+    git remote add origin https://gitlab.com/Company/my_awesome_plugin/
+    ```
+
+1. Commit changes:
+
+    ```sh
+    git commit -m "init(plugin): adding first files of My Awesome Plugin" -m "generated with QGIS Plugin Templater (https://oslandia.gitlab.io/qgis/template-qgis-plugin)"
+    ```
+
+1. Push the initial commit to the remote repository:
+
+    ```sh
+    git push -u origin main
+    ```
+
+1. Create a new release following the [packaging/release guide](./docs//development/packaging.md) with the tag `0.1.0-beta1` to trigger the CI/CD pipeline and publish the plugin on the [official QGIS plugins repository](https://plugins.qgis.org/) (if you picked up the option).
+
+----
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Distributed under the terms of the [`GPLv2+` license](LICENSE).
