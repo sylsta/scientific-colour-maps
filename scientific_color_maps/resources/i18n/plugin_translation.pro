@@ -4,10 +4,14 @@
 FORMS =	../../gui/dlg_settings.ui
 
 SOURCES =	../../gui/dlg_settings.py \
+	../../gui/dlg_file_browser.py \
 	../../plugin_main.py \
-	../../processing/provider.py \
 	../../toolbelt/env_var_parser.py \
 	../../toolbelt/log_handler.py \
 	../../toolbelt/preferences.py
 
-TRANSLATIONS = scientific_color_maps_en.ts
+TRANSLATIONS = scientific_color_maps_fr.ts \
+               scientific_color_maps_es.ts \
+               scientific_color_maps_pt.ts \
+               scientific_color_maps_zh.ts \
+               scientific_color_maps_ar.ts
