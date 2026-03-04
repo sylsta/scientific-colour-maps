@@ -22,7 +22,7 @@ from scientific_color_maps.__about__ import (
     __uri_homepage__,
 )
 from scientific_color_maps.gui.dlg_settings import PlgOptionsFactory
-from scientific_color_maps.gui.dlg_file_browser import FilePatternBrowserDialog
+from scientific_color_maps.gui.dlg_file_browser import ColorRampBrowserDialog
 
 from scientific_color_maps.toolbelt import PlgLogger
 
@@ -156,9 +156,9 @@ class ScientificColorMap:
             self.file_browser_dialog = None
 
     def open_file_browser(self):
-        """Open the file browser dialog."""
+        """Open the color ramp browser dialog."""
         if self.file_browser_dialog is None:
-            self.file_browser_dialog = FilePatternBrowserDialog(self.iface.mainWindow())
+            self.file_browser_dialog = ColorRampBrowserDialog(self.iface.mainWindow())
         
         self.file_browser_dialog.show()
         self.file_browser_dialog.raise_()
