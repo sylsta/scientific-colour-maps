@@ -22,7 +22,7 @@ from scientific_color_maps.__about__ import (
     __uri_homepage__,
 )
 from scientific_color_maps.gui.dlg_settings import PlgOptionsFactory
-
+from scientific_color_maps.gui.dlg_file_browser import FilePatternBrowserDialog
 
 from scientific_color_maps.toolbelt import PlgLogger
 
@@ -41,6 +41,7 @@ class ScientificColorMap:
         """
         self.iface = iface
         self.log = PlgLogger().log
+        self.file_browser_dialog = None
         
 
         # translation
@@ -88,7 +89,15 @@ class ScientificColorMap:
             )
         )
 
+        self.action_file_browser = QAction(
+            QgsApplication.getThemeIcon("mActionFileOpen.svg"),
+            self.tr("Browse XML Color Maps"),
+            self.iface.mainWindow(),
+        )
+        self.action_file_browser.triggered.connect(self.open_file_browser)
+
         # -- Menu
+        self.iface.addPluginToMenu(__title__, self.action_file_browser)
         self.iface.addPluginToMenu(__title__, self.action_settings)
         self.iface.addPluginToMenu(__title__, self.action_help)
 
@@ -125,6 +134,7 @@ class ScientificColorMap:
         # -- Clean up menu
         self.iface.removePluginMenu(__title__, self.action_help)
         self.iface.removePluginMenu(__title__, self.action_settings)
+        self.iface.removePluginMenu(__title__, self.action_file_browser)
 
         # -- Clean up preferences panel in QGIS settings
         self.iface.unregisterOptionsWidgetFactory(self.options_factory)
@@ -138,6 +148,21 @@ class ScientificColorMap:
         # remove actions
         del self.action_settings
         del self.action_help
+        del self.action_file_browser
+        
+        # close dialog if open
+        if self.file_browser_dialog:
+            self.file_browser_dialog.close()
+            self.file_browser_dialog = None
+
+    def open_file_browser(self):
+        """Open the file browser dialog."""
+        if self.file_browser_dialog is None:
+            self.file_browser_dialog = FilePatternBrowserDialog(self.iface.mainWindow())
+        
+        self.file_browser_dialog.show()
+        self.file_browser_dialog.raise_()
+        self.file_browser_dialog.activateWindow()
 
     def run(self):
         """Main process.
