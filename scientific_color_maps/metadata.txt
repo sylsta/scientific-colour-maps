@@ -1,0 +1,27 @@
+[general]
+name=Scientific Color Maps
+about=This plugin is a revolution!
+category=Database
+hasProcessingProvider=False
+description=Extends QGIS with revolutionary features that every single GIS end-users was expected (or not)!
+icon=resources/images/default_icon.png
+tags=topic1,topic2
+
+# credits and contact
+author=Firstname LASTNAME
+email=qgis@company.com
+homepage=https://gitlab.com/Company/scientific_color_maps/pages
+repository=https://gitlab.com/Company/scientific_color_maps/
+tracker=https://gitlab.com/Company/scientific_color_maps/issues/
+
+# QGIS context
+deprecated=False
+experimental=False
+plugin_dependencies=
+qgisMinimumVersion=3.40
+qgisMaximumVersion=4.99
+supportsQt6=True
+
+# versioning
+version=0.1.1
+changelog=
