@@ -9,8 +9,8 @@ from pathlib import Path
 
 # PyQGIS
 from qgis.core import Qgis, QgsStyle, QgsApplication
-from qgis.PyQt.QtCore import Qt, QCoreApplication, QSize
-from qgis.PyQt.QtGui import QIcon, QColor, QPixmap
+from qgis.PyQt.QtCore import Qt, QCoreApplication, QSize, QUrl
+from qgis.PyQt.QtGui import QIcon, QColor, QPixmap, QDesktopServices
 from qgis.PyQt.QtWidgets import (
     QDialog,
     QVBoxLayout,
@@ -47,6 +47,7 @@ class ColorRampBrowserDialog(QDialog):
     """Dialog to browse XML color map files and manage palettes in Style Manager."""
 
     TAG_NAME = "Sci.color.maps"
+    HELP_URL = "https://www.fabiocrameri.ch/colourmaps/"
 
     def __init__(self, parent=None):
         """Initialize the dialog."""
@@ -55,6 +56,7 @@ class ColorRampBrowserDialog(QDialog):
         self.plg_settings = PlgOptionsManager().get_plg_settings()
         self.style = QgsStyle.defaultStyle()
         self.initial_state = {}
+        self.category_items = {}
         
         self.setup_ui()
         self.load_xml_files()
@@ -111,7 +113,7 @@ class ColorRampBrowserDialog(QDialog):
         self.file_tree.setHeaderLabels([
             self.tr("Color Ramp"),
             self.tr("Preview"),
-            self.tr("Location"),
+            self.tr("Palette"),
             self.tr("Size")
         ])
         self.file_tree.setAlternatingRowColors(True)
@@ -122,7 +124,7 @@ class ColorRampBrowserDialog(QDialog):
         self.file_tree.setIconSize(QSize(100, 16))
         self.file_tree.itemChanged.connect(self.on_item_changed)
         
-        # Style the tree (without indicator styling to keep native checkboxes)
+        # Style the tree
         self.file_tree.setStyleSheet("""
             QTreeWidget {
                 border: 1px solid #bdc3c7;
@@ -197,6 +199,13 @@ class ColorRampBrowserDialog(QDialog):
         select_layout.addWidget(self.restore_btn)
         
         select_layout.addStretch()
+        
+        self.help_btn = QPushButton(self.tr(" Help"))
+        self.help_btn.setIcon(QgsApplication.getThemeIcon("mActionHelpContents.svg"))
+        self.help_btn.setCursor(Qt.PointingHandCursor)
+        self.help_btn.clicked.connect(self.open_help)
+        select_layout.addWidget(self.help_btn)
+        
         layout.addLayout(select_layout)
 
         # Apply button style
@@ -219,6 +228,7 @@ class ColorRampBrowserDialog(QDialog):
         self.select_all_btn.setStyleSheet(button_style)
         self.select_none_btn.setStyleSheet(button_style)
         self.restore_btn.setStyleSheet(button_style)
+        self.help_btn.setStyleSheet(button_style)
 
         # Action buttons
         btn_layout = QHBoxLayout()
@@ -279,6 +289,10 @@ class ColorRampBrowserDialog(QDialog):
         """Get translation for a string."""
         return QCoreApplication.translate(self.__class__.__name__, message)
 
+    def open_help(self):
+        """Open the Scientific Colour Maps website."""
+        QDesktopServices.openUrl(QUrl(self.HELP_URL))
+
     def format_file_size(self, size_bytes: int) -> str:
         """Format file size in human-readable format."""
         for unit in ['B', 'KB', 'MB', 'GB']:
@@ -296,33 +310,60 @@ class ColorRampBrowserDialog(QDialog):
             name = name[:-5]
         return name
 
-    def find_matching_files(self, directory: Path, pattern: str) -> dict:
-        """Find files matching the pattern in directory and first level subdirectories."""
-        results = {}
+    def find_xml_files_by_category(self, directory: Path, pattern: str) -> dict:
+        """
+        Find XML files and organize them by category.
         
-        root_files = list(directory.glob(pattern))
-        if root_files:
-            results["."] = sorted(root_files, key=lambda p: p.name.lower())
+        Returns a dict with two keys:
+        - 'General': files at the root of each palette folder
+        - 'Categorical Palettes': files in CategoricalPalettes subfolders
+        """
+        results = {
+            'General': [],
+            'Categorical Palettes': []
+        }
         
         try:
-            for subdir in sorted(directory.iterdir()):
-                if subdir.is_dir() and not subdir.name.startswith('.'):
-                    subdir_files = list(subdir.glob(pattern))
-                    if subdir_files:
-                        results[subdir.name] = sorted(subdir_files, key=lambda p: p.name.lower())
+            for palette_dir in sorted(directory.iterdir()):
+                if not palette_dir.is_dir() or palette_dir.name.startswith('+') or palette_dir.name.startswith('.'):
+                    continue
+                
+                # XML files at root of palette -> General
+                for xml_file in palette_dir.glob(pattern):
+                    if xml_file.is_file():
+                        results['General'].append({
+                            'path': xml_file,
+                            'palette_name': palette_dir.name
+                        })
+                
+                # XML files in CategoricalPalettes subfolder -> Categorical Palettes
+                categorical_dir = palette_dir / 'CategoricalPalettes'
+                if categorical_dir.is_dir():
+                    for xml_file in categorical_dir.glob(pattern):
+                        if xml_file.is_file():
+                            results['Categorical Palettes'].append({
+                                'path': xml_file,
+                                'palette_name': palette_dir.name
+                            })
+        
         except PermissionError as e:
             self.log(
-                message=f"Permission denied accessing subdirectories: {e}",
+                message=f"Permission denied accessing directories: {e}",
                 log_level=Qgis.MessageLevel.Warning,
             )
+        
+        # Sort by filename
+        results['General'] = sorted(results['General'], key=lambda x: x['path'].name.lower())
+        results['Categorical Palettes'] = sorted(results['Categorical Palettes'], key=lambda x: x['path'].name.lower())
         
         return results
 
     def load_xml_files(self):
-        """Load XML files from the configured directory."""
+        """Load XML files from the configured directory, organized by category."""
         self.file_tree.blockSignals(True)
         self.file_tree.clear()
         self.initial_state.clear()
+        self.category_items.clear()
         
         directory = DIR_PLUGIN_ROOT / self.plg_settings.default_color_maps_dir
         pattern = self.plg_settings.file_pattern
@@ -337,7 +378,7 @@ class ColorRampBrowserDialog(QDialog):
         existing_ramps = set(self.style.colorRampNames())
         
         try:
-            matching_files = self.find_matching_files(directory, pattern)
+            files_by_category = self.find_xml_files_by_category(directory, pattern)
         except Exception as e:
             self.status_label.setText(self.tr(f"Error searching files: {e}"))
             self.file_tree.blockSignals(False)
@@ -346,42 +387,65 @@ class ColorRampBrowserDialog(QDialog):
         total_files = 0
         installed_count = 0
         
-        folder_icon = QgsApplication.getThemeIcon("mIconFolder.svg")
+        # Category configuration
+        category_config = {
+            'General': {
+                'icon': QgsApplication.getThemeIcon("mIconFolder.svg"),
+                'color': QColor("#e8f5e9")
+            },
+            'Categorical Palettes': {
+                'icon': QgsApplication.getThemeIcon("mIconColorSwatches.svg"),
+                'color': QColor("#e3f2fd")
+            }
+        }
         
-        for subdir_name, files in matching_files.items():
-            if subdir_name == ".":
-                display_name = self.tr("Root")
-            else:
-                display_name = subdir_name
+        # Process each category
+        for category_name in ['General', 'Categorical Palettes']:
+            files = files_by_category.get(category_name, [])
             
-            parent_item = QTreeWidgetItem(self.file_tree)
-            parent_item.setIcon(0, folder_icon)
-            parent_item.setText(0, f"{display_name}")
-            parent_item.setText(1, "")
-            parent_item.setText(2, "")
-            parent_item.setText(3, f"{len(files)} items")
-            parent_item.setExpanded(True)
+            if not files:
+                continue
             
-            # Style folder row
+            # Create category item
+            category_item = QTreeWidgetItem(self.file_tree)
+            config = category_config.get(category_name)
+            category_item.setIcon(0, config['icon'])
+            category_item.setText(0, category_name)
+            category_item.setText(1, "")
+            category_item.setText(2, "")
+            category_item.setText(3, f"{len(files)} items")
+            category_item.setExpanded(True)
+            
+            # Make category checkable
+            category_item.setFlags(category_item.flags() | Qt.ItemIsUserCheckable)
+            category_item.setCheckState(0, Qt.Unchecked)
+            
+            # Store reference
+            self.category_items[category_name] = category_item
+            
+            # Style category row
             for col in range(4):
-                parent_item.setBackground(col, QColor("#f0f4f7"))
+                category_item.setBackground(col, config['color'])
             
-            for file_path in files:
-                file_item = SortableTreeWidgetItem(parent_item)
+            # Add files to category
+            for file_info in files:
+                file_path = file_info['path']
+                palette_name = file_info['palette_name']
+                
+                file_item = SortableTreeWidgetItem(category_item)
                 
                 ramp_name = self.get_ramp_name_from_filename(file_path.name)
                 is_installed = ramp_name in existing_ramps
                 
                 file_item.setFlags(file_item.flags() | Qt.ItemIsUserCheckable)
                 file_item.setCheckState(0, Qt.Checked if is_installed else Qt.Unchecked)
-                file_item.setData(0, Qt.UserRole + 1, 1 if is_installed else 0)  # Sort data
+                file_item.setData(0, Qt.UserRole + 1, 1 if is_installed else 0)
                 
-                file_item.setData(0, Qt.UserRole, str(file_path))  # File path
-                file_item.setData(1, Qt.UserRole, ramp_name)  # Ramp name
+                file_item.setData(0, Qt.UserRole, str(file_path))
+                file_item.setData(1, Qt.UserRole, ramp_name)
                 
                 self.initial_state[ramp_name] = is_installed
                 
-                # Display ramp name
                 file_item.setText(0, ramp_name)
                 
                 # Load SVG preview
@@ -389,7 +453,7 @@ class ColorRampBrowserDialog(QDialog):
                 if svg_path.exists():
                     file_item.setIcon(1, QIcon(str(svg_path)))
                 
-                file_item.setText(2, subdir_name if subdir_name != "." else "")
+                file_item.setText(2, palette_name)
                 
                 try:
                     size = file_path.stat().st_size
@@ -401,6 +465,10 @@ class ColorRampBrowserDialog(QDialog):
                 if is_installed:
                     installed_count += 1
         
+        # Update category check states
+        for cat_item in self.category_items.values():
+            self._update_category_check_state(cat_item)
+        
         self.file_tree.blockSignals(False)
         self.apply_btn.setEnabled(False)
         
@@ -409,11 +477,11 @@ class ColorRampBrowserDialog(QDialog):
         self.status_badge.setText(f"{installed_count} installed")
         
         if installed_count == total_files:
-            badge_color = "#27ae60"  # Green - all installed
+            badge_color = "#27ae60"
         elif installed_count == 0:
-            badge_color = "#95a5a6"  # Gray - none installed
+            badge_color = "#95a5a6"
         else:
-            badge_color = "#3498db"  # Blue - some installed
+            badge_color = "#3498db"
             
         self.status_badge.setStyleSheet(f"""
             background-color: {badge_color};
@@ -423,12 +491,71 @@ class ColorRampBrowserDialog(QDialog):
             font-size: 11px;
         """)
 
+    def _is_category_item(self, item):
+        """Check if item is a category."""
+        return item in self.category_items.values()
+
+    def _update_category_check_state(self, category_item):
+        """Update category checkbox based on children states."""
+        if category_item is None or category_item.childCount() == 0:
+            return
+        
+        checked = 0
+        total = category_item.childCount()
+        
+        for i in range(total):
+            if category_item.child(i).checkState(0) == Qt.Checked:
+                checked += 1
+        
+        # Determine new state
+        if checked == 0:
+            new_state = Qt.Unchecked
+        elif checked == total:
+            new_state = Qt.Checked
+        else:
+            new_state = Qt.PartiallyChecked
+        
+        # Apply state (blockSignals should already be True from caller)
+        category_item.setCheckState(0, new_state)
+
     def on_item_changed(self, item, column):
         """Handle item check state change."""
-        if column == 0:
+        if column != 0:
+            return
+        
+        if self._is_category_item(item):
+            # Category clicked
+            state = item.checkState(0)
+            
+            # When clicking a PartiallyChecked, Qt cycles to Unchecked
+            # We want to cycle: Partial -> Checked -> Unchecked -> Checked
+            # So if it was Partial and now Unchecked, keep Unchecked
+            # But we need to propagate to children
+            
+            if state == Qt.PartiallyChecked:
+                # This shouldn't happen from user click, but just in case
+                return
+            
+            # Propagate to children
+            self.file_tree.blockSignals(True)
+            for i in range(item.childCount()):
+                child = item.child(i)
+                child.setCheckState(0, state)
+                child.setData(0, Qt.UserRole + 1, 1 if state == Qt.Checked else 0)
+            self.file_tree.blockSignals(False)
+        else:
+            # File item clicked
             is_checked = item.checkState(0) == Qt.Checked
             item.setData(0, Qt.UserRole + 1, 1 if is_checked else 0)
-            self.update_apply_button()
+            
+            # Update parent category
+            parent = item.parent()
+            if parent and self._is_category_item(parent):
+                self.file_tree.blockSignals(True)
+                self._update_category_check_state(parent)
+                self.file_tree.blockSignals(False)
+        
+        self.update_apply_button()
 
     def update_apply_button(self):
         """Enable/disable Apply button based on changes."""
@@ -444,11 +571,27 @@ class ColorRampBrowserDialog(QDialog):
 
     def select_all(self):
         """Select all file items."""
-        self._set_all_check_state(Qt.Checked)
+        self.file_tree.blockSignals(True)
+        for cat_item in self.category_items.values():
+            for i in range(cat_item.childCount()):
+                child = cat_item.child(i)
+                child.setCheckState(0, Qt.Checked)
+                child.setData(0, Qt.UserRole + 1, 1)
+            cat_item.setCheckState(0, Qt.Checked)
+        self.file_tree.blockSignals(False)
+        self.update_apply_button()
 
     def select_none(self):
         """Deselect all file items."""
-        self._set_all_check_state(Qt.Unchecked)
+        self.file_tree.blockSignals(True)
+        for cat_item in self.category_items.values():
+            for i in range(cat_item.childCount()):
+                child = cat_item.child(i)
+                child.setCheckState(0, Qt.Unchecked)
+                child.setData(0, Qt.UserRole + 1, 0)
+            cat_item.setCheckState(0, Qt.Unchecked)
+        self.file_tree.blockSignals(False)
+        self.update_apply_button()
 
     def restore_selection(self):
         """Restore initial selection state."""
@@ -458,30 +601,20 @@ class ColorRampBrowserDialog(QDialog):
             initial = self.initial_state.get(ramp_name, False)
             item.setCheckState(0, Qt.Checked if initial else Qt.Unchecked)
             item.setData(0, Qt.UserRole + 1, 1 if initial else 0)
+        
+        # Update categories
+        for cat_item in self.category_items.values():
+            self._update_category_check_state(cat_item)
+        
         self.file_tree.blockSignals(False)
         self.apply_btn.setEnabled(False)
 
-    def _set_all_check_state(self, state):
-        """Set check state for all file items."""
-        self.file_tree.blockSignals(True)
-        root = self.file_tree.invisibleRootItem()
-        for i in range(root.childCount()):
-            parent_item = root.child(i)
-            for j in range(parent_item.childCount()):
-                file_item = parent_item.child(j)
-                file_item.setCheckState(0, state)
-                file_item.setData(0, Qt.UserRole + 1, 1 if state == Qt.Checked else 0)
-        self.file_tree.blockSignals(False)
-        self.update_apply_button()
-
     def _get_file_items(self):
-        """Get all file items from the tree."""
+        """Get all file items from the tree (excluding category items)."""
         items = []
-        root = self.file_tree.invisibleRootItem()
-        for i in range(root.childCount()):
-            parent_item = root.child(i)
-            for j in range(parent_item.childCount()):
-                items.append(parent_item.child(j))
+        for cat_item in self.category_items.values():
+            for i in range(cat_item.childCount()):
+                items.append(cat_item.child(i))
         return items
 
     def get_pending_changes(self):
