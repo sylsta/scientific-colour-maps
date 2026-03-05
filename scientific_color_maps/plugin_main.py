@@ -11,7 +11,7 @@ from typing import Optional
 from qgis.core import Qgis, QgsApplication, QgsSettings
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTranslator, QUrl
-from qgis.PyQt.QtGui import QDesktopServices, QIcon
+from qgis.PyQt.QtGui import QDesktopServices, QIcon, QKeySequence
 from qgis.PyQt.QtWidgets import QAction
 
 # project
@@ -94,12 +94,20 @@ class ScientificColorMap:
             self.tr("Browse XML Color Maps"),
             self.iface.mainWindow(),
         )
+        self.action_file_browser.setShortcut(QKeySequence("Ctrl+Alt+S"))
         self.action_file_browser.triggered.connect(self.open_file_browser)
 
         # -- Menu
         self.iface.addPluginToMenu(__title__, self.action_file_browser)
         self.iface.addPluginToMenu(__title__, self.action_settings)
         self.iface.addPluginToMenu(__title__, self.action_help)
+
+        # -- Plugin menu icon
+        plugin_menu = self.iface.pluginMenu()
+        for action in plugin_menu.actions():
+            if action.text() == __title__:
+                action.setIcon(QIcon(str(__icon_path__)))
+                break
 
         # -- Help menu
 

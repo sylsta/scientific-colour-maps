@@ -24,6 +24,7 @@ from qgis.PyQt.QtWidgets import (
     QFrame,
     QSizePolicy,
 )
+from qgis.utils import iface as qgis_iface
 
 # project
 from scientific_color_maps.__about__ import __title__, DIR_PLUGIN_ROOT
@@ -200,6 +201,12 @@ class ColorRampBrowserDialog(QDialog):
         
         select_layout.addStretch()
         
+        self.style_manager_btn = QPushButton(self.tr(" Style Manager"))
+        self.style_manager_btn.setIcon(QgsApplication.getThemeIcon("propertyicons/symbology.svg"))
+        self.style_manager_btn.setCursor(Qt.PointingHandCursor)
+        self.style_manager_btn.clicked.connect(self.open_style_manager)
+        select_layout.addWidget(self.style_manager_btn)
+        
         self.help_btn = QPushButton(self.tr(" Help"))
         self.help_btn.setIcon(QgsApplication.getThemeIcon("mActionHelpContents.svg"))
         self.help_btn.setCursor(Qt.PointingHandCursor)
@@ -228,6 +235,7 @@ class ColorRampBrowserDialog(QDialog):
         self.select_all_btn.setStyleSheet(button_style)
         self.select_none_btn.setStyleSheet(button_style)
         self.restore_btn.setStyleSheet(button_style)
+        self.style_manager_btn.setStyleSheet(button_style)
         self.help_btn.setStyleSheet(button_style)
 
         # Action buttons
@@ -292,6 +300,16 @@ class ColorRampBrowserDialog(QDialog):
     def open_help(self):
         """Open the Scientific Colour Maps website."""
         QDesktopServices.openUrl(QUrl(self.HELP_URL))
+
+    def open_style_manager(self):
+        """Open the QGIS Style Manager dialog."""
+        try:
+            qgis_iface.showStyleManager()
+        except Exception as e:
+            self.log(
+                message=f"Could not open Style Manager: {e}",
+                log_level=Qgis.MessageLevel.Warning,
+            )
 
     def format_file_size(self, size_bytes: int) -> str:
         """Format file size in human-readable format."""
