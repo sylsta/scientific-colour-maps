@@ -1,7 +1,8 @@
 #! python3  # noqa: E265
 
 """Main plugin module."""
-
+import os
+from configparser import ConfigParser
 # standard
 from functools import partial
 from pathlib import Path
@@ -42,7 +43,13 @@ class ScientificColorMap:
         self.iface = iface
         self.log = PlgLogger().log
         self.file_browser_dialog = None
-        
+
+        # initialize plugin directory
+        self.plugin_dir = os.path.dirname(__file__)
+        # print version number
+        config = ConfigParser()
+        config.read(f'{self.plugin_dir}/metadata.txt')
+        print(f"{config.get('general', 'name')} {config.get('general', 'version')} loaded")
 
         # translation
         # initialize the locale
@@ -53,9 +60,9 @@ class ScientificColorMap:
             DIR_PLUGIN_ROOT
             / "resources"
             / "i18n"
-            / f"{__title__.lower()}_{self.locale}.qm"
+            / f"plugin_translation_{self.locale}.qm"
         )
-        self.log(message=f"Translation: {self.locale}, {locale_path}", log_level=Qgis.MessageLevel.NoLevel)
+        self.log(message=f"Translation: {self.locale}, {locale_path}", log_level=Qgis.MessageLevel.Critical)
         if locale_path.exists():
             self.translator = QTranslator()
             self.translator.load(str(locale_path.resolve()))
