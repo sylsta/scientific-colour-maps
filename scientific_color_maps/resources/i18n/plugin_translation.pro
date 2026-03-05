@@ -1,3 +1,3 @@
-FORMS = ../../resources/gui/*.py
-SOURCES = ../../__about__.py ../../__init__.py ../../plugin_main.py
+# FORMS = /home/sylter/Cloud/gitlab.huma-num.fr/scientific-colour-maps/scientific_color_maps/gui/*.gui
+SOURCES = /home/sylter/Cloud/gitlab.huma-num.fr/scientific-colour-maps/scientific_color_maps/__about__.py /home/sylter/Cloud/gitlab.huma-num.fr/scientific-colour-maps/scientific_color_maps/__init__.py /home/sylter/Cloud/gitlab.huma-num.fr/scientific-colour-maps/scientific_color_maps/plugin_main.py /home/sylter/Cloud/gitlab.huma-num.fr/scientific-colour-maps/scientific_color_maps/gui/dlg_file_browser.py /home/sylter/Cloud/gitlab.huma-num.fr/scientific-colour-maps/scientific_color_maps/gui/dlg_settings.py /home/sylter/Cloud/gitlab.huma-num.fr/scientific-colour-maps/scientific_color_maps/gui/__init__.py
 TRANSLATIONS = plugin_translation_ar.ts plugin_translation_es.ts plugin_translation_fr.ts plugin_translation_pt.ts plugin_translation_ru.ts plugin_translation_zh.ts plugin_translation_it.ts plugin_translation_gr.ts

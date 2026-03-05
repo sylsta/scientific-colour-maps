@@ -10,11 +10,15 @@ for f in $DIRECTORY/resources/gui/*.gui; do
     FORMS="${FORMS} ${f}"
 done
 for f in $DIRECTORY/*.py; do
+    echo $f
     if [[ "${f}" != "../__init__.py" ]] && [[ "${f}" != "../resources.py" ]]; then
         SOURCES="${SOURCES} ${f}"
     fi
-for f in $DIRECTORY/resources/gui/*.py; do
+done
+for f in $DIRECTORY/gui/*.py; do
+    echo $f
     if [[ "${f}" != "../__init__.py" ]] && [[ "${f}" != "../resources.py" ]]; then
+        echo "2- ${f}"
         SOURCES="${SOURCES} ${f}"
     fi
 done
@@ -24,3 +28,4 @@ done
 echo $FORMS >"${PREFIX}.pro"
 echo $SOURCES >>"${PREFIX}.pro"
 echo $TRANSLATIONS >>"${PREFIX}.pro"
+echo ${SOURCES}
