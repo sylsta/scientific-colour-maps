@@ -1,6 +1,6 @@
 PLUGINNAME = $(shell basename $(PWD))
 VERSION = $(shell sed -n 's/version=//p' metadata.txt)
-ZIPFILE = ../$(PLUGINNAME).$(VERSION).zip
+ZIPFILE = $(PLUGINNAME).$(VERSION).zip
 .PHONY: help pylint pep8 zip
 
 help:
@@ -24,6 +24,6 @@ flake:
 
 
 zip:
-	rm -f ${ZIPFILE}
+	rm -f ../${ZIPFILE}
 	cd ..; zip -9r $(ZIPFILE) $(PLUGINNAME) -x "*.git/*" "*.idea/*" "*.gitignore" "*pyc" "*__pycache__/*" "*doc/*" "*config/custom.ini" "*resources.qrc" "*Makefile" "*symbology-style.db" "*user-history.db" "*i18n/*.sh" "*stats/*" "*i18n/*.sh"
 	@echo "Successfully zipped to" $(ZIPFILE)
