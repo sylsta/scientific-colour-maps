@@ -523,38 +523,35 @@ class ColorRampBrowserDialog(QDialog):
         if column != 0:
             return
         
+        self.file_tree.blockSignals(True)
+        self.file_tree.setSortingEnabled(False)
+        
         if self._is_category_item(item):
-            # Category clicked
+            # Category clicked — propagate to all children
             state = item.checkState(0)
             
-            # When clicking a PartiallyChecked, Qt cycles to Unchecked
-            # We want to cycle: Partial -> Checked -> Unchecked -> Checked
-            # So if it was Partial and now Unchecked, keep Unchecked
-            # But we need to propagate to children
-            
+            # PartiallyChecked should not occur from a user click,
+            # but if it does, treat it as Checked (select all)
             if state == Qt.PartiallyChecked:
-                # This shouldn't happen from user click, but just in case
-                return
+                state = Qt.Checked
+                item.setCheckState(0, Qt.Checked)
             
-            # Propagate to children
-            self.file_tree.blockSignals(True)
-            for i in range(item.childCount()):
-                child = item.child(i)
+            # Collect all children first to avoid index shifting during sort
+            children = [item.child(i) for i in range(item.childCount())]
+            for child in children:
                 child.setCheckState(0, state)
                 child.setData(0, Qt.UserRole + 1, 1 if state == Qt.Checked else 0)
-            self.file_tree.blockSignals(False)
         else:
-            # File item clicked
+            # File item clicked — update its data and parent category
             is_checked = item.checkState(0) == Qt.Checked
             item.setData(0, Qt.UserRole + 1, 1 if is_checked else 0)
             
-            # Update parent category
             parent = item.parent()
             if parent and self._is_category_item(parent):
-                self.file_tree.blockSignals(True)
                 self._update_category_check_state(parent)
-                self.file_tree.blockSignals(False)
         
+        self.file_tree.setSortingEnabled(True)
+        self.file_tree.blockSignals(False)
         self.update_apply_button()
 
     def update_apply_button(self):
@@ -572,30 +569,35 @@ class ColorRampBrowserDialog(QDialog):
     def select_all(self):
         """Select all file items."""
         self.file_tree.blockSignals(True)
+        self.file_tree.setSortingEnabled(False)
         for cat_item in self.category_items.values():
-            for i in range(cat_item.childCount()):
-                child = cat_item.child(i)
+            children = [cat_item.child(i) for i in range(cat_item.childCount())]
+            for child in children:
                 child.setCheckState(0, Qt.Checked)
                 child.setData(0, Qt.UserRole + 1, 1)
             cat_item.setCheckState(0, Qt.Checked)
+        self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
 
     def select_none(self):
         """Deselect all file items."""
         self.file_tree.blockSignals(True)
+        self.file_tree.setSortingEnabled(False)
         for cat_item in self.category_items.values():
-            for i in range(cat_item.childCount()):
-                child = cat_item.child(i)
+            children = [cat_item.child(i) for i in range(cat_item.childCount())]
+            for child in children:
                 child.setCheckState(0, Qt.Unchecked)
                 child.setData(0, Qt.UserRole + 1, 0)
             cat_item.setCheckState(0, Qt.Unchecked)
+        self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
 
     def restore_selection(self):
         """Restore initial selection state."""
         self.file_tree.blockSignals(True)
+        self.file_tree.setSortingEnabled(False)
         for item in self._get_file_items():
             ramp_name = item.data(1, Qt.UserRole)
             initial = self.initial_state.get(ramp_name, False)
@@ -606,6 +608,7 @@ class ColorRampBrowserDialog(QDialog):
         for cat_item in self.category_items.values():
             self._update_category_check_state(cat_item)
         
+        self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.apply_btn.setEnabled(False)
 
