@@ -1,18 +1,74 @@
 [general]
-name=Scientific Color Maps
-about=This plugin is a revolution!
-category=Database
+name=Scientific Color Maps V8
+description=Integrates "Scientific color maps V8" into the style manager
+category=Plugins
 hasProcessingProvider=False
-description=Extends QGIS with revolutionary features that every single GIS end-users was expected (or not)!
+about=This extension adds the "Scientific color maps v89" developed by Fabio Crameri to the QGIS 3.x style manager.
+
+    Cette extension ajoute au gestionnaire de style de QGIS 3.x les rampes de couleurs "Scientific color maps v89" développées par Fabio Crameri.
+
+    Esta extensión añade al gestor de estilos de QGIS 3.x las gamas de colores «Scientific color maps v89» desarrolladas por Fabio Crameri.
+
+    Esta extensão adiciona ao gestor de estilos do QGIS 3.x as rampas de cores «Scientific color maps v89» desenvolvidas por Fabio Crameri.
+
+    Questa estensione aggiunge al gestore di stili di QGIS 3.x le scale cromatiche "Scientific color maps v89" sviluppate da Fabio Crameri.
+
+    يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v8" التي طورها Fabio Crameri.
+
+    此扩展为QGIS 3.x的样式管理器添加了由Fabio Crameri开发的"Scientific color maps v89"色阶。
+
+    Details about these symbologies are available at:
+    - https://www.fabiocrameri.ch/colourmaps/
+    and are the subject of the scientific publication:
+    - https://doi.org/10.5281/zenodo.1243862
+
+    Thanks to Mélina M. for introducing me to Fabio Crameri's work during our fieldwork in Cairo.
+
+about[fr]=Cette extension ajoute au gestionnaire de style de QGIS 3.x les rampes de couleurs "Scientific color maps v8" développées par Fabio Crameri.
+    Les détails concernant ces symbologies sont disponibles sur:
+    - https://www.fabiocrameri.ch/colourmaps/
+    et font l'objet de la publication scientifique :
+    - https://doi.org/10.5281/zenodo.1243862
+
+about[es]=Esta extensión añade al gestor de estilos de QGIS 3.x las gamas de colores «Scientific color maps v8» desarrolladas por Fabio Crameri.
+    Los detalles sobre estas simbologías están disponibles en:
+    - https://www.fabiocrameri.ch/colourmaps/
+    y son objeto de la publicación científica:
+    - https://doi.org/10.5281/zenodo.1243862
+
+about[pt]=Esta extensão adiciona ao gestor de estilos do QGIS 3.x as rampas de cores «Scientific color maps v8» desenvolvidas por Fabio Crameri.
+    Os detalhes relativos a estas simbologias estão disponíveis em:
+    - https://www.fabiocrameri.ch/colourmaps/
+    e são objeto da publicação científica:
+    - https://doi.org/10.5281/zenodo.1243862
+
+about[it]=Questa estensione aggiunge al gestore di stili di QGIS 3.x le scale cromatiche "Scientific color maps v8" sviluppate da Fabio Crameri.
+    I dettagli relativi a queste simbologie sono disponibili su:
+    - https://www.fabiocrameri.ch/colourmaps/
+    e sono oggetto della pubblicazione scientifica:
+    - https://doi.org/10.5281/zenodo.1243862
+
+desctiption[ar]:يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v89" التي طورها Fabio Crameri.
+    تتوفر التفاصيل المتعلقة بهذه الرموز على:
+    - https://www.fabiocrameri.ch/colourmaps/
+    وهي موضوع المنشور العلمي:
+    - https://doi.org/10.5281/zenodo.1243862
+
+about[zh]:此扩展为QGIS 3.x的样式管理器添加了由Fabio Crameri开发的"Scientific color maps v8"色阶。
+    有关这些符号系统的详细信息，请参阅：
+    - https://www.fabiocrameri.ch/colourmaps/
+    并参阅以下科学出版物：
+    - https://doi.org/10.5281/zenodo.1243862
+
 icon=resources/images/default_icon.png
-tags=topic1,topic2
+tags=Scientific Color Maps V8, Palette, Fabio Crameri, Color Map
 
 # credits and contact
-author=Firstname LASTNAME
-email=qgis@company.com
-homepage=https://gitlab.com/Company/scientific_color_maps/pages
-repository=https://gitlab.com/Company/scientific_color_maps/
-tracker=https://gitlab.com/Company/scientific_color_maps/issues/
+author=Sylvain Théry - https://CNRS - https://UMR 5281 ART-Dev
+email=sylvain.thery@cnrs.fr
+homepage=www.fabiocrameri.ch/colourmaps/
+repository=gitlab.huma-num.fr/sthery/scientific-colour-maps/
+tracker=gitlab.huma-num.fr/sthery/scientific-colour-maps/-/issues
 
 # QGIS context
 deprecated=False
@@ -23,5 +79,7 @@ qgisMaximumVersion=4.99
 supportsQt6=True
 
 # versioning
-version=0.1.1
+version=1.0
 changelog=
+    1.0 - https://2026-03-05
+        - https://First release
