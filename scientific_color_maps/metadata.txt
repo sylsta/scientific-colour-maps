@@ -13,14 +13,18 @@ about=This extension adds the "Scientific color maps v89" developed by Fabio Cra
 
     Questa estensione aggiunge al gestore di stili di QGIS 3.x le scale cromatiche "Scientific color maps v89" sviluppate da Fabio Crameri.
 
+    Αυτή η επέκταση προσθέτει στο πρόγραμμα διαχείρισης στυλ του QGIS 3.x τις χρωματικές κλίμακες «Scientific color maps v8» που αναπτύχθηκαν από τον Fabio Crameri.
+
+    Это расширение добавляет в менеджер стилей QGIS 3.x цветовые шкалы «Scientific color maps v8», разработанные Фабио Крамери.
+
     يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v8" التي طورها Fabio Crameri.
 
     此扩展为QGIS 3.x的样式管理器添加了由Fabio Crameri开发的"Scientific color maps v89"色阶。
 
-    Details about these symbologies are available at:
-    - https://www.fabiocrameri.ch/colourmaps/
-    and are the subject of the scientific publication:
-    - https://doi.org/10.5281/zenodo.1243862
+    See :
+        Crameri, F. (2018). Scientific colour maps. Zenodo. https://doi.org/10.5281/zenodo.1243862
+        Crameri, F. (2018), Geodynamic diagnostics, scientific visualisation and StagLab 3.0, Geosci. Model Dev., 11, 2541-2562, https://doi.org/10.5194/gmd-11-2541-2018
+        Crameri, F., G.E. Shephard, and P.J. Heron (2020), The misuse of colour in science communication, Nature Communications, 11, 5444, https://doi.org/10.1038/s41467-020-19160-7
 
     Thanks to Mélina M. for introducing me to Fabio Crameri's work during our fieldwork in Cairo.
 
@@ -48,6 +52,17 @@ about[it]=Questa estensione aggiunge al gestore di stili di QGIS 3.x le scale cr
     e sono oggetto della pubblicazione scientifica:
     - https://doi.org/10.5281/zenodo.1243862
 
+about[gr]=Αυτή η επέκταση προσθέτει στο πρόγραμμα διαχείρισης στυλ του QGIS 3.x τις χρωματικές κλίμακες «Scientific color maps v8» που αναπτύχθηκαν από τον Fabio Crameri.
+    Λεπτομέρειες σχετικά με αυτές τις συμβολολογίες είναι διαθέσιμες στις διευθύνσεις:
+    - https://www.fabiocrameri.ch/colourmaps/
+    και αποτελούν αντικείμενο της επιστημονικής δημοσίευσης:
+    - https://doi.org/10.5281/zenodo.1243862
+about[ru]:Это расширение добавляет в менеджер стилей QGIS 3.x цветовые шкалы «Scientific color maps v8», разработанные Фабио Крамери.
+    Подробная информация об этих символах доступна по адресу:
+    - https://www.fabiocrameri.ch/colourmaps/
+    и является предметом научной публикации:
+    - https://doi.org/10.5281/zenodo.1243862
+
 desctiption[ar]:يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v89" التي طورها Fabio Crameri.
     تتوفر التفاصيل المتعلقة بهذه الرموز على:
     - https://www.fabiocrameri.ch/colourmaps/
@@ -60,8 +75,8 @@ about[zh]:此扩展为QGIS 3.x的样式管理器添加了由Fabio Crameri开发�
     并参阅以下科学出版物：
     - https://doi.org/10.5281/zenodo.1243862
 
-icon=resources/images/default_icon.png
-tags=Scientific Color Maps V8, Palette, Fabio Crameri, Color Map
+icon=resources/images/scientificcolourmaps_logodark.png
+tags=Scientific Color Maps V8, Palette, Fabio Crameri, Color Map, Style Manager
 
 # credits and contact
 author=Sylvain Théry - https://CNRS - https://UMR 5281 ART-Dev
@@ -73,7 +88,6 @@ tracker=gitlab.huma-num.fr/sthery/scientific-colour-maps/-/issues
 # QGIS context
 deprecated=False
 experimental=False
-plugin_dependencies=
 qgisMinimumVersion=3.40
 qgisMaximumVersion=4.99
 supportsQt6=True
@@ -81,5 +95,5 @@ supportsQt6=True
 # versioning
 version=1.0
 changelog=
-    1.0 - https://2026-03-05
-        - https://First release
+    1.0 2026-03-05
+        - First release
