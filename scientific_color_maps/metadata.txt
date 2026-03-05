@@ -3,15 +3,15 @@ name=Scientific Color Maps V8
 description=Integrates "Scientific color maps V8" into the style manager
 category=Plugins
 hasProcessingProvider=False
-about=This extension adds the "Scientific color maps v89" developed by Fabio Crameri to the QGIS 3.x style manager.
+about=This extension adds the "Scientific color maps v8" developed by Fabio Crameri to the QGIS 3.x style manager.
 
-    Cette extension ajoute au gestionnaire de style de QGIS 3.x les rampes de couleurs "Scientific color maps v89" développées par Fabio Crameri.
+    Cette extension ajoute au gestionnaire de style de QGIS 3.x les rampes de couleurs "Scientific color maps v8" développées par Fabio Crameri.
 
-    Esta extensión añade al gestor de estilos de QGIS 3.x las gamas de colores «Scientific color maps v89» desarrolladas por Fabio Crameri.
+    Esta extensión añade al gestor de estilos de QGIS 3.x las gamas de colores «Scientific color maps v8» desarrolladas por Fabio Crameri.
 
-    Esta extensão adiciona ao gestor de estilos do QGIS 3.x as rampas de cores «Scientific color maps v89» desenvolvidas por Fabio Crameri.
+    Esta extensão adiciona ao gestor de estilos do QGIS 3.x as rampas de cores «Scientific color maps v8» desenvolvidas por Fabio Crameri.
 
-    Questa estensione aggiunge al gestore di stili di QGIS 3.x le scale cromatiche "Scientific color maps v89" sviluppate da Fabio Crameri.
+    Questa estensione aggiunge al gestore di stili di QGIS 3.x le scale cromatiche "Scientific color maps v8" sviluppate da Fabio Crameri.
 
     Αυτή η επέκταση προσθέτει στο πρόγραμμα διαχείρισης στυλ του QGIS 3.x τις χρωματικές κλίμακες «Scientific color maps v8» που αναπτύχθηκαν από τον Fabio Crameri.
 
@@ -19,7 +19,7 @@ about=This extension adds the "Scientific color maps v89" developed by Fabio Cra
 
     يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v8" التي طورها Fabio Crameri.
 
-    此扩展为QGIS 3.x的样式管理器添加了由Fabio Crameri开发的"Scientific color maps v89"色阶。
+    此扩展为QGIS 3.x的样式管理器添加了由Fabio Crameri开发的"Scientific color maps v8"色阶。
 
     See :
         Crameri, F. (2018). Scientific colour maps. Zenodo. https://doi.org/10.5281/zenodo.1243862
@@ -63,7 +63,7 @@ about[ru]:Это расширение добавляет в менеджер с�
     и является предметом научной публикации:
     - https://doi.org/10.5281/zenodo.1243862
 
-desctiption[ar]:يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v89" التي طورها Fabio Crameri.
+desctiption[ar]:يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v8" التي طورها Fabio Crameri.
     تتوفر التفاصيل المتعلقة بهذه الرموز على:
     - https://www.fabiocrameri.ch/colourmaps/
     وهي موضوع المنشور العلمي:
@@ -79,11 +79,11 @@ icon=resources/images/scientificcolourmaps_logodark.png
 tags=Scientific Color Maps V8, Palette, Fabio Crameri, Color Map, Style Manager
 
 # credits and contact
-author=Sylvain Théry - https://CNRS - https://UMR 5281 ART-Dev
+author=Sylvain Théry - CNRS - UMR 5281 ART-Dev
 email=sylvain.thery@cnrs.fr
-homepage=www.fabiocrameri.ch/colourmaps/
-repository=gitlab.huma-num.fr/sthery/scientific-colour-maps/
-tracker=gitlab.huma-num.fr/sthery/scientific-colour-maps/-/issues
+homepage=https://www.fabiocrameri.ch/colourmaps/
+repository=https://gitlab.huma-num.fr/sthery/scientific-colour-maps/
+tracker=https://gitlab.huma-num.fr/sthery/scientific-colour-maps/-/issues
 
 # QGIS context
 deprecated=False
