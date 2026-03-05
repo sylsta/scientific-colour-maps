@@ -11,5 +11,5 @@ find "$REPERTOIRE_RACINE" -type f \( \
     ! -iname "*.sh" -a \
     ! -iname "*QGIS.xml" \) -exec rm -v {} \;
 
-# Supprimer tous les sous-sous-répertoires (et leur contenu)
-find "$REPERTOIRE_RACINE" -mindepth 2 -type d -exec rm -rv {} \;
+# Supprimer uniquement les répertoires vides
+find "$REPERTOIRE_RACINE" -type d -empty -exec rmdir -v {} \;
