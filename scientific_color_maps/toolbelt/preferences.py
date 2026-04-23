@@ -50,10 +50,11 @@ class PlgSettingsStructure:
     # global
     debug_mode: bool = False
     version: str = __version__
-    
+
     # file browser
     default_color_maps_dir: str = "resources/ScientificColourMaps8"
     file_pattern: str = "*QGIS.xml"
+
 
 class PlgOptionsManager:
     @staticmethod

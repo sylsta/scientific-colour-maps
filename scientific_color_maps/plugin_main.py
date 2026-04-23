@@ -6,7 +6,6 @@ from configparser import ConfigParser
 # standard
 from functools import partial
 from pathlib import Path
-from typing import Optional
 
 # PyQGIS
 from qgis.core import Qgis, QgsApplication, QgsSettings
@@ -53,16 +52,10 @@ class ScientificColorMap:
 
         # translation
         # initialize the locale
-        self.locale: str = QgsSettings().value("locale/userLocale", QLocale().name())[
-            0:2
-        ]
-        locale_path: Path = (
-            DIR_PLUGIN_ROOT
-            / "resources"
-            / "i18n"
-            / f"plugin_translation_{self.locale}.qm"
-        )
+        self.locale: str = QgsSettings().value("locale/userLocale", QLocale().name())[0:2]
+        locale_path: Path = (DIR_PLUGIN_ROOT / "resources" / "i18n" / f"plugin_translation_{self.locale}.qm")
         self.log(message=f"Translation: {self.locale}, {locale_path}", log_level=Qgis.MessageLevel.Critical)
+
         if locale_path.exists():
             self.translator = QTranslator()
             self.translator.load(str(locale_path.resolve()))
@@ -164,7 +157,7 @@ class ScientificColorMap:
         del self.action_settings
         del self.action_help
         del self.action_file_browser
-        
+
         # close dialog if open
         if self.file_browser_dialog:
             self.file_browser_dialog.close()
@@ -174,7 +167,7 @@ class ScientificColorMap:
         """Open the color ramp browser dialog."""
         if self.file_browser_dialog is None:
             self.file_browser_dialog = ColorRampBrowserDialog(self.iface.mainWindow())
-        
+
         self.file_browser_dialog.show()
         self.file_browser_dialog.raise_()
         self.file_browser_dialog.activateWindow()
