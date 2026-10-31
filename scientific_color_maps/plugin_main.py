@@ -8,7 +8,7 @@ from functools import partial
 from pathlib import Path
 
 # PyQGIS
-from qgis.core import Qgis, QgsApplication, QgsSettings
+from qgis.core import Qgis, QgsApplication, QgsSettings, QgsStyle
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTranslator, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon, QKeySequence
@@ -31,6 +31,7 @@ from scientific_color_maps.gui.dlg_settings import PlgOptionsFactory
 from scientific_color_maps.gui.dlg_file_browser import ColorRampBrowserDialog
 
 from scientific_color_maps.toolbelt import PlgLogger
+from scientific_color_maps.toolbelt.style_sync import sync_smart_group
 
 # ############################################################################
 # ########## Classes ###############
@@ -49,6 +50,8 @@ class ScientificColorMap:
         self.log = PlgLogger().log
         self.file_browser_dialog = None
         self.toolbar = None
+        self.style = None
+        self.style_signals = ()
 
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
@@ -74,6 +77,20 @@ class ScientificColorMap:
         # settings page within the QGIS preferences menu
         self.options_factory = PlgOptionsFactory()
         self.iface.registerOptionsWidgetFactory(self.options_factory)
+
+        # -- Style Manager smart group: create/delete it now, then follow every
+        # change of the default style (ramps added, removed, (un)tagged, tags or
+        # groups edited), whether made by this plugin or in the Style Manager.
+        self.style = QgsStyle.defaultStyle()
+        sync_smart_group(self.style)
+        self.style_signals = (
+            self.style.entityAdded,
+            self.style.entityRemoved,
+            self.style.entityTagsChanged,
+            self.style.groupsModified,
+        )
+        for signal in self.style_signals:
+            signal.connect(self.on_style_changed)
 
         # -- Actions
         self.action_help = QAction(
@@ -155,8 +172,18 @@ class ScientificColorMap:
         """
         return QCoreApplication.translate(self.__class__.__name__, message)
 
+    def on_style_changed(self, *args):
+        """Keep the smart group in sync with the plugin ramps of the style."""
+        sync_smart_group(self.style)
+
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""
+        # -- Stop following the style
+        for signal in self.style_signals:
+            try:
+                signal.disconnect(self.on_style_changed)
+            except TypeError:
+                pass
         # -- Clean up menu
         self.iface.removePluginMenu(__title__, self.action_help)
         self.iface.removePluginMenu(__title__, self.action_settings)
