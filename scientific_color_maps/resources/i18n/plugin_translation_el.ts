@@ -175,12 +175,12 @@
         <translation>{} - Τεκμηρίωση</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="252"/>
+        <location filename="../../plugin_main.py" line="258"/>
         <source>Everything ran OK.</source>
         <translation>Όλα εκτελέστηκαν σωστά.</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="258"/>
+        <location filename="../../plugin_main.py" line="264"/>
         <source>Houston, we&apos;ve got a problem: {}</source>
         <translation>Χιούστον, έχουμε πρόβλημα: {}</translation>
     </message>

@@ -236,7 +236,13 @@ class ScientificColorMap:
     def open_file_browser(self):
         """Open the color ramp browser dialog."""
         if self.file_browser_dialog is None:
+            # first opening: the dialog loads the ramps in its constructor
             self.file_browser_dialog = ColorRampBrowserDialog(self.iface.mainWindow())
+        elif not self.file_browser_dialog.isVisible():
+            # reopening a hidden dialog: reload from the style, which may have
+            # changed meanwhile (Style Manager, another script...). Not done if
+            # the dialog is already visible, to keep the user's pending selection.
+            self.file_browser_dialog.load_xml_files()
 
         self.file_browser_dialog.show()
         self.file_browser_dialog.raise_()

@@ -175,12 +175,12 @@
         <translation>{} - Документация</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="252"/>
+        <location filename="../../plugin_main.py" line="258"/>
         <source>Everything ran OK.</source>
         <translation>Всё выполнено успешно.</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="258"/>
+        <location filename="../../plugin_main.py" line="264"/>
         <source>Houston, we&apos;ve got a problem: {}</source>
         <translation>Хьюстон, у нас проблема: {}</translation>
     </message>
