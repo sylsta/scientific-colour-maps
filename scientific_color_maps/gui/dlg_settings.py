@@ -79,7 +79,7 @@ class ConfigOptionsPage(FORM_CLASS, QgsOptionsPageWidget):
             partial(
                 QDesktopServices.openUrl,
                 QUrl(
-                    f"{__uri_tracker__}new/?"
+                    f"{__uri_tracker__.rstrip('/')}/new/?"
                     "template=10_bug_report.yml"
                     f"&about-info={report_context_message}"
                 ),
