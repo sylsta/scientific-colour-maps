@@ -159,19 +159,19 @@ class ColorRampBrowserDialog(QDialog):
         select_layout = QHBoxLayout()
         select_layout.setSpacing(8)
 
-        self.select_all_btn = QPushButton(self.tr(" Select All"))
+        self.select_all_btn = QPushButton(self.tr("Select All"))
         self.select_all_btn.setIcon(QgsApplication.getThemeIcon("mActionSelectAll.svg"))
         self.select_all_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.select_all_btn.clicked.connect(self.select_all)
         select_layout.addWidget(self.select_all_btn)
 
-        self.select_none_btn = QPushButton(self.tr(" Select None"))
+        self.select_none_btn = QPushButton(self.tr("Select None"))
         self.select_none_btn.setIcon(QgsApplication.getThemeIcon("mActionDeselectAll.svg"))
         self.select_none_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.select_none_btn.clicked.connect(self.select_none)
         select_layout.addWidget(self.select_none_btn)
 
-        self.restore_btn = QPushButton(self.tr(" Restore"))
+        self.restore_btn = QPushButton(self.tr("Restore"))
         self.restore_btn.setIcon(QgsApplication.getThemeIcon("mActionUndo.svg"))
         self.restore_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.restore_btn.clicked.connect(self.restore_selection)
@@ -179,13 +179,13 @@ class ColorRampBrowserDialog(QDialog):
 
         select_layout.addStretch()
 
-        self.style_manager_btn = QPushButton(self.tr(" Style Manager"))
+        self.style_manager_btn = QPushButton(self.tr("Style Manager"))
         self.style_manager_btn.setIcon(QgsApplication.getThemeIcon("propertyicons/symbology.svg"))
         self.style_manager_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.style_manager_btn.clicked.connect(self.open_style_manager)
         select_layout.addWidget(self.style_manager_btn)
 
-        self.help_btn = QPushButton(self.tr(" Help"))
+        self.help_btn = QPushButton(self.tr("Help"))
         self.help_btn.setIcon(QgsApplication.getThemeIcon("mActionHelpContents.svg"))
         self.help_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.help_btn.clicked.connect(self.open_help)
@@ -198,7 +198,7 @@ class ColorRampBrowserDialog(QDialog):
         btn_layout.setSpacing(10)
         btn_layout.addStretch()
 
-        self.apply_btn = QPushButton(self.tr(" Apply Changes"))
+        self.apply_btn = QPushButton(self.tr("Apply Changes"))
         self.apply_btn.setIcon(QgsApplication.getThemeIcon("mActionSaveAllEdits.svg"))
         self.apply_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.apply_btn.clicked.connect(self.apply_changes)
@@ -208,7 +208,7 @@ class ColorRampBrowserDialog(QDialog):
         self.apply_btn.setFont(apply_font)
         btn_layout.addWidget(self.apply_btn)
 
-        self.close_btn = QPushButton(self.tr(" Close"))
+        self.close_btn = QPushButton(self.tr("Close"))
         self.close_btn.setIcon(QgsApplication.getThemeIcon("mIconClose.svg"))
         self.close_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.close_btn.clicked.connect(self.close)
@@ -326,8 +326,8 @@ class ColorRampBrowserDialog(QDialog):
         pattern = self.plg_settings.file_pattern
 
         if not directory.is_dir():
-            self.status_label.setText(self.tr(f"Directory not found: {directory}"))
-            self._set_badge("Error", "error")
+            self.status_label.setText(self.tr("Directory not found: {}").format(directory))
+            self._set_badge(self.tr("Error"), "error")
             self.file_tree.blockSignals(False)
             return
 
@@ -336,7 +336,7 @@ class ColorRampBrowserDialog(QDialog):
         try:
             files_by_category = self.find_xml_files_by_category(directory, pattern)
         except Exception as e:
-            self.status_label.setText(self.tr(f"Error searching files: {e}"))
+            self.status_label.setText(self.tr("Error searching files: {}").format(e))
             self.file_tree.blockSignals(False)
             return
 
@@ -353,6 +353,12 @@ class ColorRampBrowserDialog(QDialog):
             }
         }
 
+        # Displayed (translated) category labels; dict keys stay untranslated
+        category_labels = {
+            'General': self.tr("General"),
+            'Categorical Palettes': self.tr("Categorical Palettes"),
+        }
+
         # Process each category
         for category_name in ['General', 'Categorical Palettes']:
             files = files_by_category.get(category_name, [])
@@ -364,10 +370,10 @@ class ColorRampBrowserDialog(QDialog):
             category_item = QTreeWidgetItem(self.file_tree)
             config = category_config.get(category_name)
             category_item.setIcon(0, config['icon'])
-            category_item.setText(0, category_name)
+            category_item.setText(0, category_labels[category_name])
             category_item.setText(1, "")
             category_item.setText(2, "")
-            category_item.setText(3, f"{len(files)} items")
+            category_item.setText(3, self.tr("{} items").format(len(files)))
             category_item.setExpanded(True)
 
             # Make category checkable
@@ -431,7 +437,7 @@ class ColorRampBrowserDialog(QDialog):
         self.apply_btn.setEnabled(False)
 
         # Update status
-        self.status_label.setText(f"{total_files} palettes available")
+        self.status_label.setText(self.tr("{} palettes available").format(total_files))
 
         if installed_count == total_files:
             badge_state = "all"
@@ -440,7 +446,7 @@ class ColorRampBrowserDialog(QDialog):
         else:
             badge_state = "some"
 
-        self._set_badge(f"{installed_count} installed", badge_state)
+        self._set_badge(self.tr("{} installed").format(installed_count), badge_state)
 
     def _is_category_item(self, item):
         """Check if item is a category."""
@@ -601,20 +607,36 @@ class ColorRampBrowserDialog(QDialog):
         msg_parts = []
 
         if to_install:
-            msg_parts.append(f"<b style='color: #27ae60;'>➕ Install {len(to_install)} palette(s):</b>")
+            msg_parts.append(
+                "<b style='color: #27ae60;'>➕ {}</b>".format(
+                    self.tr("Install {} palette(s):").format(len(to_install))
+                )
+            )
             for name, _ in to_install[:5]:
                 msg_parts.append(f"&nbsp;&nbsp;&nbsp;• {name}")
             if len(to_install) > 5:
-                msg_parts.append(f"&nbsp;&nbsp;&nbsp;<i>... and {len(to_install) - 5} more</i>")
+                msg_parts.append(
+                    "&nbsp;&nbsp;&nbsp;<i>{}</i>".format(
+                        self.tr("... and {} more").format(len(to_install) - 5)
+                    )
+                )
 
         if to_remove:
             if msg_parts:
                 msg_parts.append("<br>")
-            msg_parts.append(f"<b style='color: #e74c3c;'>➖ Remove {len(to_remove)} palette(s):</b>")
+            msg_parts.append(
+                "<b style='color: #e74c3c;'>➖ {}</b>".format(
+                    self.tr("Remove {} palette(s):").format(len(to_remove))
+                )
+            )
             for name in to_remove[:5]:
                 msg_parts.append(f"&nbsp;&nbsp;&nbsp;• {name}")
             if len(to_remove) > 5:
-                msg_parts.append(f"&nbsp;&nbsp;&nbsp;<i>... and {len(to_remove) - 5} more</i>")
+                msg_parts.append(
+                    "&nbsp;&nbsp;&nbsp;<i>{}</i>".format(
+                        self.tr("... and {} more").format(len(to_remove) - 5)
+                    )
+                )
 
         # Show confirmation dialog
         msg_box = QMessageBox(self)
@@ -668,11 +690,11 @@ class ColorRampBrowserDialog(QDialog):
         # Report results
         status_parts = []
         if installed_count > 0:
-            status_parts.append(f"✓ {installed_count} installed")
+            status_parts.append("✓ " + self.tr("{} installed").format(installed_count))
         if removed_count > 0:
-            status_parts.append(f"✓ {removed_count} removed")
+            status_parts.append("✓ " + self.tr("{} removed").format(removed_count))
         if errors:
-            status_parts.append(f"⚠ {len(errors)} errors")
+            status_parts.append("⚠ " + self.tr("{} errors").format(len(errors)))
             for err in errors:
                 print(f"ERROR: {err}")
 

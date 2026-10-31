@@ -121,7 +121,7 @@ class ScientificColorMap:
         self.iface.pluginHelpMenu().addSeparator()
         self.action_help_plugin_menu_documentation = QAction(
             QIcon(str(__icon_path__)),
-            f"{__title__} - Documentation",
+            self.tr("{} - Documentation").format(__title__),
             self.iface.mainWindow(),
         )
         self.action_help_plugin_menu_documentation.triggered.connect(
@@ -191,7 +191,7 @@ class ScientificColorMap:
             )
         except Exception as err:
             self.log(
-                message=self.tr("Houston, we've got a problem: {}".format(err)),
+                message=self.tr("Houston, we've got a problem: {}").format(err),
                 log_level=Qgis.MessageLevel.Critical,
                 push=True,
             )
