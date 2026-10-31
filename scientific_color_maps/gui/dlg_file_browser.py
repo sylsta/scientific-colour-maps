@@ -10,7 +10,7 @@ from pathlib import Path
 # PyQGIS
 from qgis.core import Qgis, QgsStyle, QgsApplication
 from qgis.PyQt.QtCore import Qt, QCoreApplication, QSize, QUrl
-from qgis.PyQt.QtGui import QIcon, QColor, QDesktopServices
+from qgis.PyQt.QtGui import QIcon, QDesktopServices, QFont
 from qgis.PyQt.QtWidgets import (
     QDialog,
     QVBoxLayout,
@@ -51,6 +51,16 @@ class ColorRampBrowserDialog(QDialog):
     """Dialog to browse XML color map files and manage palettes in Style Manager."""
 
     TAG_NAME = "Sci.color.maps"
+
+    # Status badge colours: saturated backgrounds with white text stay readable
+    # on both light and dark QGIS themes. Every other widget uses the active
+    # theme (palette / application stylesheet) instead of hard-coded colours.
+    BADGE_COLORS = {
+        "all": "#27ae60",
+        "some": "#3498db",
+        "none": "#7f8c8d",
+        "error": "#e74c3c",
+    }
     HELP_URL = "https://www.fabiocrameri.ch/colourmaps/"
 
     def __init__(self, parent=None):
@@ -85,22 +95,17 @@ class ColorRampBrowserDialog(QDialog):
         header_layout.addWidget(icon_label)
 
         title_label = QLabel(self.tr("Color Map Palettes"))
-        title_label.setStyleSheet("font-size: 16px; font-weight: bold; color: #2c3e50;")
+        title_font = QFont(title_label.font())
+        title_font.setPointSizeF(title_font.pointSizeF() * 1.3)
+        title_font.setBold(True)
+        title_label.setFont(title_font)
         header_layout.addWidget(title_label)
 
         header_layout.addStretch()
 
         # Status badge
         self.status_badge = QLabel()
-        self.status_badge.setStyleSheet("""
-            QLabel {
-                background-color: #3498db;
-                color: white;
-                padding: 4px 10px;
-                border-radius: 10px;
-                font-size: 11px;
-            }
-        """)
+        self._set_badge("", "some")
         header_layout.addWidget(self.status_badge)
 
         layout.addLayout(header_layout)
@@ -108,8 +113,7 @@ class ColorRampBrowserDialog(QDialog):
         # Separator
         separator = QFrame()
         separator.setFrameShape(QFrame.Shape.HLine)
-        separator.setStyleSheet("background-color: #bdc3c7;")
-        separator.setFixedHeight(1)
+        separator.setFrameShadow(QFrame.Shadow.Sunken)
         layout.addWidget(separator)
 
         # Tree widget
@@ -127,34 +131,6 @@ class ColorRampBrowserDialog(QDialog):
         self.file_tree.setAnimated(True)
         self.file_tree.setIconSize(QSize(100, 16))
         self.file_tree.itemChanged.connect(self.on_item_changed)
-
-        # Style the tree
-        self.file_tree.setStyleSheet("""
-            QTreeWidget {
-                border: 1px solid #bdc3c7;
-                border-radius: 4px;
-                background-color: #ffffff;
-                alternate-background-color: #f8f9fa;
-            }
-            QTreeWidget::item {
-                padding: 4px 2px;
-            }
-            QTreeWidget::item:selected {
-                background-color: #3498db;
-                color: white;
-            }
-            QTreeWidget::item:hover:!selected {
-                background-color: #e8f4fc;
-            }
-            QHeaderView::section {
-                background-color: #ecf0f1;
-                padding: 6px;
-                border: none;
-                border-bottom: 2px solid #bdc3c7;
-                font-weight: bold;
-                color: #2c3e50;
-            }
-        """)
 
         header = self.file_tree.header()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
@@ -174,7 +150,6 @@ class ColorRampBrowserDialog(QDialog):
         info_layout.addWidget(info_icon)
 
         self.status_label = QLabel()
-        self.status_label.setStyleSheet("color: #7f8c8d; font-size: 12px;")
         info_layout.addWidget(self.status_label)
 
         info_layout.addStretch()
@@ -218,29 +193,6 @@ class ColorRampBrowserDialog(QDialog):
 
         layout.addLayout(select_layout)
 
-        # Apply button style
-        button_style = """
-            QPushButton {
-                padding: 6px 14px;
-                border: 1px solid #bdc3c7;
-                border-radius: 4px;
-                background-color: #ffffff;
-                color: #2c3e50;
-            }
-            QPushButton:hover {
-                background-color: #ecf0f1;
-                border-color: #95a5a6;
-            }
-            QPushButton:pressed {
-                background-color: #d5dbdb;
-            }
-        """
-        self.select_all_btn.setStyleSheet(button_style)
-        self.select_none_btn.setStyleSheet(button_style)
-        self.restore_btn.setStyleSheet(button_style)
-        self.style_manager_btn.setStyleSheet(button_style)
-        self.help_btn.setStyleSheet(button_style)
-
         # Action buttons
         btn_layout = QHBoxLayout()
         btn_layout.setSpacing(10)
@@ -251,47 +203,15 @@ class ColorRampBrowserDialog(QDialog):
         self.apply_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.apply_btn.clicked.connect(self.apply_changes)
         self.apply_btn.setEnabled(False)
-        self.apply_btn.setStyleSheet("""
-            QPushButton {
-                padding: 8px 20px;
-                border: none;
-                border-radius: 4px;
-                background-color: #27ae60;
-                color: white;
-                font-weight: bold;
-            }
-            QPushButton:hover {
-                background-color: #2ecc71;
-            }
-            QPushButton:pressed {
-                background-color: #1e8449;
-            }
-            QPushButton:disabled {
-                background-color: #bdc3c7;
-                color: #7f8c8d;
-            }
-        """)
+        apply_font = QFont(self.apply_btn.font())
+        apply_font.setBold(True)
+        self.apply_btn.setFont(apply_font)
         btn_layout.addWidget(self.apply_btn)
 
         self.close_btn = QPushButton(self.tr(" Close"))
         self.close_btn.setIcon(QgsApplication.getThemeIcon("mIconClose.svg"))
         self.close_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.close_btn.clicked.connect(self.close)
-        self.close_btn.setStyleSheet("""
-            QPushButton {
-                padding: 8px 20px;
-                border: 1px solid #bdc3c7;
-                border-radius: 4px;
-                background-color: #ffffff;
-                color: #2c3e50;
-            }
-            QPushButton:hover {
-                background-color: #ecf0f1;
-            }
-            QPushButton:pressed {
-                background-color: #d5dbdb;
-            }
-        """)
         btn_layout.addWidget(self.close_btn)
 
         layout.addLayout(btn_layout)
@@ -299,6 +219,22 @@ class ColorRampBrowserDialog(QDialog):
     def tr(self, message: str) -> str:
         """Get translation for a string."""
         return QCoreApplication.translate(self.__class__.__name__, message)
+
+    def _set_badge(self, text: str, state: str):
+        """Update the status badge text and colour.
+
+        :param text: text displayed in the badge
+        :param state: one of the BADGE_COLORS keys ("all", "some", "none", "error")
+        """
+        self.status_badge.setText(text)
+        self.status_badge.setStyleSheet(
+            "QLabel {"
+            f" background-color: {self.BADGE_COLORS[state]};"
+            " color: white;"
+            " padding: 4px 10px;"
+            " border-radius: 10px;"
+            "}"
+        )
 
     def open_help(self):
         """Open the Scientific Colour Maps website."""
@@ -391,8 +327,7 @@ class ColorRampBrowserDialog(QDialog):
 
         if not directory.is_dir():
             self.status_label.setText(self.tr(f"Directory not found: {directory}"))
-            self.status_badge.setText("Error")
-            self.status_badge.setStyleSheet("background-color: #e74c3c; color: white; padding: 4px 10px; border-radius: 10px; font-size: 11px;")
+            self._set_badge("Error", "error")
             self.file_tree.blockSignals(False)
             return
 
@@ -412,11 +347,9 @@ class ColorRampBrowserDialog(QDialog):
         category_config = {
             'General': {
                 'icon': QgsApplication.getThemeIcon("mIconFolder.svg"),
-                'color': QColor("#e8f5e9")
             },
             'Categorical Palettes': {
                 'icon': QgsApplication.getThemeIcon("mIconColorSwatches.svg"),
-                'color': QColor("#e3f2fd")
             }
         }
 
@@ -444,9 +377,11 @@ class ColorRampBrowserDialog(QDialog):
             # Store reference
             self.category_items[category_name] = category_item
 
-            # Style category row
+            # Style category row: bold text, colours follow the active theme
+            category_font = QFont(category_item.font(0))
+            category_font.setBold(True)
             for col in range(4):
-                category_item.setBackground(col, config['color'])
+                category_item.setFont(col, category_font)
 
             # Add files to category
             for file_info in files:
@@ -497,22 +432,15 @@ class ColorRampBrowserDialog(QDialog):
 
         # Update status
         self.status_label.setText(f"{total_files} palettes available")
-        self.status_badge.setText(f"{installed_count} installed")
 
         if installed_count == total_files:
-            badge_color = "#27ae60"
+            badge_state = "all"
         elif installed_count == 0:
-            badge_color = "#95a5a6"
+            badge_state = "none"
         else:
-            badge_color = "#3498db"
+            badge_state = "some"
 
-        self.status_badge.setStyleSheet(f"""
-            background-color: {badge_color};
-            color: white;
-            padding: 4px 10px;
-            border-radius: 10px;
-            font-size: 11px;
-        """)
+        self._set_badge(f"{installed_count} installed", badge_state)
 
     def _is_category_item(self, item):
         """Check if item is a category."""
