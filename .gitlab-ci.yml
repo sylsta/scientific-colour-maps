@@ -1,0 +1,51 @@
+stages:
+  - github_sync
+  - crowdin
+
+variables:
+  GIT_SUBMODULE_STRATEGY: none
+
+sync_with_github:
+  stage: github_sync
+  image: alpine:latest
+  only:
+    - main
+  before_script:
+    - apk add --no-cache git openssh
+    - mkdir -p ~/.ssh
+    - echo "$GITHUB_SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - git config --global user.email "ci@gitlab.huma-num.fr"
+    - git config --global user.name "GitLab CI"
+  script:
+    - git clone --mirror https://gitlab.huma-num.fr/sthery/scientific-colour-maps.git
+    - cd scientific-colour-maps.git
+    - git remote set-url --push origin git@github.com:sylsta/scientific-colour-maps.git
+    - git push --mirror
+
+#crowdin_upload:
+#  stage: crowdin
+#  image: node:20
+#  rules:
+#    - if: '$CI_PIPELINE_SOURCE == "push"'
+#      when: always
+#    - when: never
+#  script:
+#    - npm install -g @crowdin/cli@latest
+#    - echo "Synchronisation des fichiers sources avec Crowdin"
+#    - crowdin upload sources --config crowdin.yml --branch main
+#
+#crowdin_download:
+#  stage: crowdin
+#  image: node:20
+#  only:
+#    - schedules
+#  script:
+#    - npm install -g @crowdin/cli@latest
+#    - echo "Téléchargement des traductions depuis Crowdin"
+#    - crowdin download --config crowdin.yml --branch main
+#    - echo "Copie des fichiers traduits dans les chemins d'origine"
+#    - cp -r i18n_translations/fr/*.ts i18n/
+#    - find help_translations/fr -name '*.md' -exec cp --parents \{\} help/ \;
+
