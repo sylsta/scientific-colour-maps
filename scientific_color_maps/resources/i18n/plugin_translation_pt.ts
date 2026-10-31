@@ -154,32 +154,33 @@
 <context>
     <name>ScientificColorMap</name>
     <message>
-        <location filename="../../plugin_main.py" line="80"/>
+        <location filename="../../plugin_main.py" line="81"/>
         <source>Help</source>
         <translation>Ajuda</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="89"/>
+        <location filename="../../plugin_main.py" line="90"/>
         <source>Settings</source>
         <translation>Configurações</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="100"/>
+        <location filename="../../plugin_main.py" line="101"/>
+        <location filename="../../plugin_main.py" line="124"/>
         <source>Browse XML Color Maps</source>
         <translation>Explorar mapas de cores XML</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="124"/>
+        <location filename="../../plugin_main.py" line="136"/>
         <source>{} - Documentation</source>
         <translation>{} - Documentação</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="188"/>
+        <location filename="../../plugin_main.py" line="208"/>
         <source>Everything ran OK.</source>
         <translation>Tudo correu bem.</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="194"/>
+        <location filename="../../plugin_main.py" line="214"/>
         <source>Houston, we&apos;ve got a problem: {}</source>
         <translation>Houston, temos um problema: {}</translation>
     </message>

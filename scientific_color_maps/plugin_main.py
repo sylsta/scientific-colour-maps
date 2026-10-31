@@ -48,6 +48,7 @@ class ScientificColorMap:
         self.iface = iface
         self.log = PlgLogger().log
         self.file_browser_dialog = None
+        self.toolbar = None
 
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
@@ -115,6 +116,17 @@ class ScientificColorMap:
                 action.setIcon(QIcon(str(__icon_path__)))
                 break
 
+        # -- Toolbar: a single button with the plugin icon opening the browser
+        self.toolbar = self.iface.addToolBar(__title__)
+        self.toolbar.setObjectName("ScientificColorMapsToolbar")
+        self.action_toolbar_browser = QAction(
+            QIcon(str(__icon_path__)),
+            self.tr("Browse XML Color Maps"),
+            self.iface.mainWindow(),
+        )
+        self.action_toolbar_browser.triggered.connect(self.open_file_browser)
+        self.toolbar.addAction(self.action_toolbar_browser)
+
         # -- Help menu
 
         # documentation
@@ -163,6 +175,14 @@ class ScientificColorMap:
         del self.action_settings
         del self.action_help
         del self.action_file_browser
+
+        # remove the toolbar
+        if self.toolbar:
+            self.toolbar.removeAction(self.action_toolbar_browser)
+            self.iface.mainWindow().removeToolBar(self.toolbar)
+            self.toolbar.deleteLater()
+            self.toolbar = None
+        del self.action_toolbar_browser
 
         # close dialog if open
         if self.file_browser_dialog:

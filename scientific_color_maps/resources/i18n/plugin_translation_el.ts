@@ -154,32 +154,33 @@
 <context>
     <name>ScientificColorMap</name>
     <message>
-        <location filename="../../plugin_main.py" line="80"/>
+        <location filename="../../plugin_main.py" line="81"/>
         <source>Help</source>
         <translation>Βοήθεια</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="89"/>
+        <location filename="../../plugin_main.py" line="90"/>
         <source>Settings</source>
         <translation>Ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="100"/>
+        <location filename="../../plugin_main.py" line="101"/>
+        <location filename="../../plugin_main.py" line="124"/>
         <source>Browse XML Color Maps</source>
         <translation>Περιήγηση χρωματικών χαρτών XML</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="124"/>
+        <location filename="../../plugin_main.py" line="136"/>
         <source>{} - Documentation</source>
         <translation>{} - Τεκμηρίωση</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="188"/>
+        <location filename="../../plugin_main.py" line="208"/>
         <source>Everything ran OK.</source>
         <translation>Όλα εκτελέστηκαν σωστά.</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="194"/>
+        <location filename="../../plugin_main.py" line="214"/>
         <source>Houston, we&apos;ve got a problem: {}</source>
         <translation>Χιούστον, έχουμε πρόβλημα: {}</translation>
     </message>

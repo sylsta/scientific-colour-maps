@@ -154,32 +154,33 @@
 <context>
     <name>ScientificColorMap</name>
     <message>
-        <location filename="../../plugin_main.py" line="80"/>
+        <location filename="../../plugin_main.py" line="81"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="89"/>
+        <location filename="../../plugin_main.py" line="90"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="100"/>
+        <location filename="../../plugin_main.py" line="101"/>
+        <location filename="../../plugin_main.py" line="124"/>
         <source>Browse XML Color Maps</source>
         <translation>浏览 XML 颜色映射</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="124"/>
+        <location filename="../../plugin_main.py" line="136"/>
         <source>{} - Documentation</source>
         <translation>{} - 文档</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="188"/>
+        <location filename="../../plugin_main.py" line="208"/>
         <source>Everything ran OK.</source>
         <translation>一切运行正常。</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="194"/>
+        <location filename="../../plugin_main.py" line="214"/>
         <source>Houston, we&apos;ve got a problem: {}</source>
         <translation>休斯顿，我们遇到了问题：{}</translation>
     </message>
