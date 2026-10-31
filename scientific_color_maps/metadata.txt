@@ -52,7 +52,7 @@ about[it]=Questa estensione aggiunge al gestore di stili di QGIS 3.x le scale cr
     e sono oggetto della pubblicazione scientifica:
     - https://doi.org/10.5281/zenodo.1243862
 
-about[gr]=Αυτή η επέκταση προσθέτει στο πρόγραμμα διαχείρισης στυλ του QGIS 3.x τις χρωματικές κλίμακες «Scientific color maps v8» που αναπτύχθηκαν από τον Fabio Crameri.
+about[el]=Αυτή η επέκταση προσθέτει στο πρόγραμμα διαχείρισης στυλ του QGIS 3.x τις χρωματικές κλίμακες «Scientific color maps v8» που αναπτύχθηκαν από τον Fabio Crameri.
     Λεπτομέρειες σχετικά με αυτές τις συμβολολογίες είναι διαθέσιμες στις διευθύνσεις:
     - https://www.fabiocrameri.ch/colourmaps/
     και αποτελούν αντικείμενο της επιστημονικής δημοσίευσης:
@@ -63,7 +63,7 @@ about[ru]:Это расширение добавляет в менеджер с�
     и является предметом научной публикации:
     - https://doi.org/10.5281/zenodo.1243862
 
-desctiption[ar]:يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v8" التي طورها Fabio Crameri.
+about[ar]=يضيف هذا الملحق إلى مدير الأنماط في QGIS 3.x سلالم الألوان "Scientific color maps v8" التي طورها Fabio Crameri.
     تتوفر التفاصيل المتعلقة بهذه الرموز على:
     - https://www.fabiocrameri.ch/colourmaps/
     وهي موضوع المنشور العلمي:
@@ -92,7 +92,7 @@ qgisMinimumVersion=3.40
 qgisMaximumVersion=4.99
 
 # versioning
-version=1.2.3
+version=1.2.4
 changelog=
     1.1 (2026-04-23)
         - fix code according to flake8
