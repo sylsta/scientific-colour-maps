@@ -32,6 +32,9 @@ from scientific_color_maps.toolbelt import PlgLogger, PlgOptionsManager
 # Custom data role used to sort items by their checked state.
 # Fully-qualified enums are required by PyQt6 and also accepted by PyQt5.
 SORT_ROLE = int(Qt.ItemDataRole.UserRole) + 1
+# Custom data role flagging a ramp whose name is already used in the user's
+# style by a ramp NOT installed by this plugin (left untouched).
+CONFLICT_ROLE = SORT_ROLE + 1
 
 
 class SortableTreeWidgetItem(QTreeWidgetItem):
@@ -315,6 +318,24 @@ class ColorRampBrowserDialog(QDialog):
 
         return results
 
+    def _plugin_ramp_names(self) -> set:
+        """Names of the color ramps installed by this plugin (tagged TAG_NAME).
+
+        Only these ramps are considered "installed" and may be removed: a ramp
+        with the same name created or imported by the user is never touched.
+        """
+        if self.TAG_NAME not in self.style.tags():
+            return set()
+        tag_id = self.style.tagId(self.TAG_NAME)
+        return set(
+            self.style.symbolsWithTag(QgsStyle.StyleEntity.ColorrampEntity, tag_id)
+        )
+
+    @staticmethod
+    def _is_conflict(item) -> bool:
+        """True if the item's ramp name is already used by a non-plugin ramp."""
+        return bool(item.data(0, CONFLICT_ROLE))
+
     def load_xml_files(self):
         """Load XML files from the configured directory, organized by category."""
         self.file_tree.blockSignals(True)
@@ -332,6 +353,7 @@ class ColorRampBrowserDialog(QDialog):
             return
 
         existing_ramps = set(self.style.colorRampNames())
+        plugin_ramps = self._plugin_ramp_names()
 
         try:
             files_by_category = self.find_xml_files_by_category(directory, pattern)
@@ -342,6 +364,7 @@ class ColorRampBrowserDialog(QDialog):
 
         total_files = 0
         installed_count = 0
+        conflict_count = 0
 
         # Category configuration
         category_config = {
@@ -397,7 +420,9 @@ class ColorRampBrowserDialog(QDialog):
                 file_item = SortableTreeWidgetItem(category_item)
 
                 ramp_name = self.get_ramp_name_from_filename(file_path.name)
-                is_installed = ramp_name in existing_ramps
+                is_installed = ramp_name in plugin_ramps
+                # same name already used by a ramp the plugin did not install
+                is_conflict = ramp_name in existing_ramps and not is_installed
 
                 file_item.setFlags(file_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
                 file_item.setCheckState(
@@ -407,6 +432,17 @@ class ColorRampBrowserDialog(QDialog):
 
                 file_item.setData(0, Qt.ItemDataRole.UserRole, str(file_path))
                 file_item.setData(1, Qt.ItemDataRole.UserRole, ramp_name)
+                file_item.setData(0, CONFLICT_ROLE, is_conflict)
+
+                if is_conflict:
+                    # never overwrite nor remove the user's own ramp
+                    file_item.setDisabled(True)
+                    tooltip = self.tr(
+                        "A color ramp named '{}' already exists in your style and was "
+                        "not installed by this plugin. It is left untouched."
+                    ).format(ramp_name)
+                    for col in range(4):
+                        file_item.setToolTip(col, tooltip)
 
                 self.initial_state[ramp_name] = is_installed
 
@@ -425,7 +461,10 @@ class ColorRampBrowserDialog(QDialog):
                 except OSError:
                     file_item.setText(3, "—")
 
-                total_files += 1
+                if is_conflict:
+                    conflict_count += 1
+                else:
+                    total_files += 1
                 if is_installed:
                     installed_count += 1
 
@@ -437,7 +476,14 @@ class ColorRampBrowserDialog(QDialog):
         self.apply_btn.setEnabled(False)
 
         # Update status
-        self.status_label.setText(self.tr("{} palettes available").format(total_files))
+        if conflict_count:
+            self.status_label.setText(
+                self.tr("{} palettes available ({} unavailable: name already used)").format(
+                    total_files, conflict_count
+                )
+            )
+        else:
+            self.status_label.setText(self.tr("{} palettes available").format(total_files))
 
         if installed_count == total_files:
             badge_state = "all"
@@ -457,12 +503,17 @@ class ColorRampBrowserDialog(QDialog):
         if category_item is None or category_item.childCount() == 0:
             return
 
-        checked = 0
-        total = category_item.childCount()
+        children = [
+            category_item.child(i)
+            for i in range(category_item.childCount())
+            if not self._is_conflict(category_item.child(i))
+        ]
+        total = len(children)
+        if total == 0:
+            category_item.setCheckState(0, Qt.CheckState.Unchecked)
+            return
 
-        for i in range(total):
-            if category_item.child(i).checkState(0) == Qt.CheckState.Checked:
-                checked += 1
+        checked = sum(1 for c in children if c.checkState(0) == Qt.CheckState.Checked)
 
         # Determine new state
         if checked == 0:
@@ -496,6 +547,8 @@ class ColorRampBrowserDialog(QDialog):
             # Collect all children first to avoid index shifting during sort
             children = [item.child(i) for i in range(item.childCount())]
             for child in children:
+                if self._is_conflict(child):
+                    continue
                 child.setCheckState(0, state)
                 child.setData(0, SORT_ROLE, 1 if state == Qt.CheckState.Checked else 0)
         else:
@@ -530,9 +583,11 @@ class ColorRampBrowserDialog(QDialog):
         for cat_item in self.category_items.values():
             children = [cat_item.child(i) for i in range(cat_item.childCount())]
             for child in children:
+                if self._is_conflict(child):
+                    continue
                 child.setCheckState(0, Qt.CheckState.Checked)
                 child.setData(0, SORT_ROLE, 1)
-            cat_item.setCheckState(0, Qt.CheckState.Checked)
+            self._update_category_check_state(cat_item)
         self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
@@ -544,9 +599,11 @@ class ColorRampBrowserDialog(QDialog):
         for cat_item in self.category_items.values():
             children = [cat_item.child(i) for i in range(cat_item.childCount())]
             for child in children:
+                if self._is_conflict(child):
+                    continue
                 child.setCheckState(0, Qt.CheckState.Unchecked)
                 child.setData(0, SORT_ROLE, 0)
-            cat_item.setCheckState(0, Qt.CheckState.Unchecked)
+            self._update_category_check_state(cat_item)
         self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
@@ -578,20 +635,27 @@ class ColorRampBrowserDialog(QDialog):
         return items
 
     def get_pending_changes(self):
-        """Get lists of ramps to install and remove."""
+        """Get lists of ramps to install and remove.
+
+        Only ramps tagged by this plugin can be removed, and a ramp is installed
+        only if no ramp with the same name exists yet (state re-read from the
+        style, in case it changed since the dialog was loaded).
+        """
         existing_ramps = set(self.style.colorRampNames())
+        plugin_ramps = self._plugin_ramp_names()
         to_install = []
         to_remove = []
 
         for item in self._get_file_items():
+            if self._is_conflict(item):
+                continue
             file_path = item.data(0, Qt.ItemDataRole.UserRole)
             ramp_name = item.data(1, Qt.ItemDataRole.UserRole)
             is_checked = item.checkState(0) == Qt.CheckState.Checked
-            is_installed = ramp_name in existing_ramps
 
-            if is_checked and not is_installed:
+            if is_checked and ramp_name not in existing_ramps:
                 to_install.append((ramp_name, file_path))
-            elif not is_checked and is_installed:
+            elif not is_checked and ramp_name in plugin_ramps:
                 to_remove.append(ramp_name)
 
         return to_install, to_remove

@@ -4,139 +4,149 @@
 <context>
     <name>ColorRampBrowserDialog</name>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="80"/>
+        <location filename="../../gui/dlg_file_browser.py" line="83"/>
         <source>Scientific Color Maps</source>
         <translation>科学颜色映射</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="97"/>
+        <location filename="../../gui/dlg_file_browser.py" line="100"/>
         <source>Color Map Palettes</source>
         <translation>颜色映射调色板</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="162"/>
+        <location filename="../../gui/dlg_file_browser.py" line="165"/>
         <source>Select All</source>
         <translation>全选</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="168"/>
+        <location filename="../../gui/dlg_file_browser.py" line="171"/>
         <source>Select None</source>
         <translation>全不选</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="174"/>
+        <location filename="../../gui/dlg_file_browser.py" line="177"/>
         <source>Restore</source>
         <translation>恢复</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="182"/>
+        <location filename="../../gui/dlg_file_browser.py" line="185"/>
         <source>Style Manager</source>
         <translation>样式管理器</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="188"/>
+        <location filename="../../gui/dlg_file_browser.py" line="191"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="201"/>
+        <location filename="../../gui/dlg_file_browser.py" line="204"/>
         <source>Apply Changes</source>
         <translation>应用更改</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="211"/>
+        <location filename="../../gui/dlg_file_browser.py" line="214"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="358"/>
+        <location filename="../../gui/dlg_file_browser.py" line="381"/>
         <source>General</source>
         <translation>常规</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="359"/>
+        <location filename="../../gui/dlg_file_browser.py" line="382"/>
         <source>Categorical Palettes</source>
         <translation>分类调色板</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="643"/>
+        <location filename="../../gui/dlg_file_browser.py" line="707"/>
         <source>Confirm Changes</source>
         <translation>确认更改</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="122"/>
+        <location filename="../../gui/dlg_file_browser.py" line="125"/>
         <source>Color Ramp</source>
         <translation>颜色渐变</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="123"/>
+        <location filename="../../gui/dlg_file_browser.py" line="126"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="124"/>
+        <location filename="../../gui/dlg_file_browser.py" line="127"/>
         <source>Palette</source>
         <translation>调色板</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="125"/>
+        <location filename="../../gui/dlg_file_browser.py" line="128"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="330"/>
+        <location filename="../../gui/dlg_file_browser.py" line="351"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="440"/>
-        <source>{} palettes available</source>
-        <translation>{} 个可用调色板</translation>
-    </message>
-    <message>
-        <location filename="../../gui/dlg_file_browser.py" line="449"/>
-        <location filename="../../gui/dlg_file_browser.py" line="693"/>
+        <location filename="../../gui/dlg_file_browser.py" line="495"/>
+        <location filename="../../gui/dlg_file_browser.py" line="757"/>
         <source>{} installed</source>
         <translation>已安装 {} 个</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="329"/>
+        <location filename="../../gui/dlg_file_browser.py" line="350"/>
         <source>Directory not found: {}</source>
         <translation>未找到目录：{}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="376"/>
+        <location filename="../../gui/dlg_file_browser.py" line="399"/>
         <source>{} items</source>
         <translation>{} 项</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="339"/>
+        <location filename="../../gui/dlg_file_browser.py" line="481"/>
+        <source>{} palettes available ({} unavailable: name already used)</source>
+        <translation>{} 个可用调色板（{} 个不可用：名称已被使用）</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="486"/>
+        <source>{} palettes available</source>
+        <translation>{} 个可用调色板</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="361"/>
         <source>Error searching files: {}</source>
         <translation>搜索文件时出错：{}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="612"/>
+        <location filename="../../gui/dlg_file_browser.py" line="440"/>
+        <source>A color ramp named &apos;{}&apos; already exists in your style and was not installed by this plugin. It is left untouched.</source>
+        <translation>您的样式中已存在名为“{}”的颜色渐变，且并非由此扩展安装。它将保持不变。</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="676"/>
         <source>Install {} palette(s):</source>
         <translation>安装 {} 个调色板：</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="629"/>
+        <location filename="../../gui/dlg_file_browser.py" line="693"/>
         <source>Remove {} palette(s):</source>
         <translation>移除 {} 个调色板：</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="695"/>
+        <location filename="../../gui/dlg_file_browser.py" line="759"/>
         <source>{} removed</source>
         <translation>已移除 {} 个</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="697"/>
+        <location filename="../../gui/dlg_file_browser.py" line="761"/>
         <source>{} errors</source>
         <translation>{} 个错误</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="620"/>
-        <location filename="../../gui/dlg_file_browser.py" line="637"/>
+        <location filename="../../gui/dlg_file_browser.py" line="684"/>
+        <location filename="../../gui/dlg_file_browser.py" line="701"/>
         <source>... and {} more</source>
         <translation>……另有 {} 个</translation>
     </message>

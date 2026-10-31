@@ -4,139 +4,149 @@
 <context>
     <name>ColorRampBrowserDialog</name>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="80"/>
+        <location filename="../../gui/dlg_file_browser.py" line="83"/>
         <source>Scientific Color Maps</source>
         <translation>خرائط الألوان العلمية</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="97"/>
+        <location filename="../../gui/dlg_file_browser.py" line="100"/>
         <source>Color Map Palettes</source>
         <translation>لوحات خرائط الألوان</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="162"/>
+        <location filename="../../gui/dlg_file_browser.py" line="165"/>
         <source>Select All</source>
         <translation>تحديد الكل</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="168"/>
+        <location filename="../../gui/dlg_file_browser.py" line="171"/>
         <source>Select None</source>
         <translation>إلغاء تحديد الكل</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="174"/>
+        <location filename="../../gui/dlg_file_browser.py" line="177"/>
         <source>Restore</source>
         <translation>استعادة</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="182"/>
+        <location filename="../../gui/dlg_file_browser.py" line="185"/>
         <source>Style Manager</source>
         <translation>مدير الأنماط</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="188"/>
+        <location filename="../../gui/dlg_file_browser.py" line="191"/>
         <source>Help</source>
         <translation>مساعدة</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="201"/>
+        <location filename="../../gui/dlg_file_browser.py" line="204"/>
         <source>Apply Changes</source>
         <translation>تطبيق التغييرات</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="211"/>
+        <location filename="../../gui/dlg_file_browser.py" line="214"/>
         <source>Close</source>
         <translation>إغلاق</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="358"/>
+        <location filename="../../gui/dlg_file_browser.py" line="381"/>
         <source>General</source>
         <translation>عام</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="359"/>
+        <location filename="../../gui/dlg_file_browser.py" line="382"/>
         <source>Categorical Palettes</source>
         <translation>لوحات فئوية</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="643"/>
+        <location filename="../../gui/dlg_file_browser.py" line="707"/>
         <source>Confirm Changes</source>
         <translation>تأكيد التغييرات</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="122"/>
+        <location filename="../../gui/dlg_file_browser.py" line="125"/>
         <source>Color Ramp</source>
         <translation>تدرج الألوان</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="123"/>
+        <location filename="../../gui/dlg_file_browser.py" line="126"/>
         <source>Preview</source>
         <translation>معاينة</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="124"/>
+        <location filename="../../gui/dlg_file_browser.py" line="127"/>
         <source>Palette</source>
         <translation>لوحة</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="125"/>
+        <location filename="../../gui/dlg_file_browser.py" line="128"/>
         <source>Size</source>
         <translation>الحجم</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="330"/>
+        <location filename="../../gui/dlg_file_browser.py" line="351"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="440"/>
-        <source>{} palettes available</source>
-        <translation>{} لوحات متاحة</translation>
-    </message>
-    <message>
-        <location filename="../../gui/dlg_file_browser.py" line="449"/>
-        <location filename="../../gui/dlg_file_browser.py" line="693"/>
+        <location filename="../../gui/dlg_file_browser.py" line="495"/>
+        <location filename="../../gui/dlg_file_browser.py" line="757"/>
         <source>{} installed</source>
         <translation>{} مثبتة</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="329"/>
+        <location filename="../../gui/dlg_file_browser.py" line="350"/>
         <source>Directory not found: {}</source>
         <translation>الدليل غير موجود: {}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="376"/>
+        <location filename="../../gui/dlg_file_browser.py" line="399"/>
         <source>{} items</source>
         <translation>{} عناصر</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="339"/>
+        <location filename="../../gui/dlg_file_browser.py" line="481"/>
+        <source>{} palettes available ({} unavailable: name already used)</source>
+        <translation>{} لوحات متاحة ({} غير متاحة: الاسم مستخدم بالفعل)</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="486"/>
+        <source>{} palettes available</source>
+        <translation>{} لوحات متاحة</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="361"/>
         <source>Error searching files: {}</source>
         <translation>خطأ في البحث عن الملفات: {}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="612"/>
+        <location filename="../../gui/dlg_file_browser.py" line="440"/>
+        <source>A color ramp named &apos;{}&apos; already exists in your style and was not installed by this plugin. It is left untouched.</source>
+        <translation>يوجد بالفعل في نمطك تدرج ألوان باسم «{}» لم يتم تثبيته بواسطة هذا الملحق. لن يتم تعديله.</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="676"/>
         <source>Install {} palette(s):</source>
         <translation>تثبيت {} لوحة:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="629"/>
+        <location filename="../../gui/dlg_file_browser.py" line="693"/>
         <source>Remove {} palette(s):</source>
         <translation>إزالة {} لوحة:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="695"/>
+        <location filename="../../gui/dlg_file_browser.py" line="759"/>
         <source>{} removed</source>
         <translation>{} تمت إزالتها</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="697"/>
+        <location filename="../../gui/dlg_file_browser.py" line="761"/>
         <source>{} errors</source>
         <translation>{} أخطاء</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="620"/>
-        <location filename="../../gui/dlg_file_browser.py" line="637"/>
+        <location filename="../../gui/dlg_file_browser.py" line="684"/>
+        <location filename="../../gui/dlg_file_browser.py" line="701"/>
         <source>... and {} more</source>
         <translation>... و{} أخرى</translation>
     </message>
