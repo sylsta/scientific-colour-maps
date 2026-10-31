@@ -12,7 +12,13 @@ from qgis.core import Qgis, QgsApplication, QgsSettings
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTranslator, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon, QKeySequence
-from qgis.PyQt.QtWidgets import QAction
+
+try:
+    # Qt6 (QGIS 4): QAction lives in QtGui
+    from qgis.PyQt.QtGui import QAction
+except ImportError:
+    # Qt5 (QGIS 3): QAction lives in QtWidgets
+    from qgis.PyQt.QtWidgets import QAction
 
 # project
 from scientific_color_maps.__about__ import (

@@ -29,6 +29,10 @@ from qgis.utils import iface as qgis_iface
 from scientific_color_maps.__about__ import DIR_PLUGIN_ROOT
 from scientific_color_maps.toolbelt import PlgLogger, PlgOptionsManager
 
+# Custom data role used to sort items by their checked state.
+# Fully-qualified enums are required by PyQt6 and also accepted by PyQt5.
+SORT_ROLE = int(Qt.ItemDataRole.UserRole) + 1
+
 
 class SortableTreeWidgetItem(QTreeWidgetItem):
     """TreeWidgetItem with custom sorting for checkbox column."""
@@ -36,8 +40,8 @@ class SortableTreeWidgetItem(QTreeWidgetItem):
     def __lt__(self, other):
         column = self.treeWidget().sortColumn()
         if column == 0:
-            self_val = self.data(0, Qt.UserRole + 1)
-            other_val = other.data(0, Qt.UserRole + 1)
+            self_val = self.data(0, SORT_ROLE)
+            other_val = other.data(0, SORT_ROLE)
             if self_val is not None and other_val is not None:
                 return self_val < other_val
         return super().__lt__(other)
@@ -103,7 +107,7 @@ class ColorRampBrowserDialog(QDialog):
 
         # Separator
         separator = QFrame()
-        separator.setFrameShape(QFrame.HLine)
+        separator.setFrameShape(QFrame.Shape.HLine)
         separator.setStyleSheet("background-color: #bdc3c7;")
         separator.setFixedHeight(1)
         layout.addWidget(separator)
@@ -153,11 +157,11 @@ class ColorRampBrowserDialog(QDialog):
         """)
 
         header = self.file_tree.header()
-        header.setSectionResizeMode(0, QHeaderView.Stretch)
-        header.setSectionResizeMode(1, QHeaderView.Fixed)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Fixed)
         header.resizeSection(1, 120)
-        header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
 
         layout.addWidget(self.file_tree)
 
@@ -182,19 +186,19 @@ class ColorRampBrowserDialog(QDialog):
 
         self.select_all_btn = QPushButton(self.tr(" Select All"))
         self.select_all_btn.setIcon(QgsApplication.getThemeIcon("mActionSelectAll.svg"))
-        self.select_all_btn.setCursor(Qt.PointingHandCursor)
+        self.select_all_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.select_all_btn.clicked.connect(self.select_all)
         select_layout.addWidget(self.select_all_btn)
 
         self.select_none_btn = QPushButton(self.tr(" Select None"))
         self.select_none_btn.setIcon(QgsApplication.getThemeIcon("mActionDeselectAll.svg"))
-        self.select_none_btn.setCursor(Qt.PointingHandCursor)
+        self.select_none_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.select_none_btn.clicked.connect(self.select_none)
         select_layout.addWidget(self.select_none_btn)
 
         self.restore_btn = QPushButton(self.tr(" Restore"))
         self.restore_btn.setIcon(QgsApplication.getThemeIcon("mActionUndo.svg"))
-        self.restore_btn.setCursor(Qt.PointingHandCursor)
+        self.restore_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.restore_btn.clicked.connect(self.restore_selection)
         select_layout.addWidget(self.restore_btn)
 
@@ -202,13 +206,13 @@ class ColorRampBrowserDialog(QDialog):
 
         self.style_manager_btn = QPushButton(self.tr(" Style Manager"))
         self.style_manager_btn.setIcon(QgsApplication.getThemeIcon("propertyicons/symbology.svg"))
-        self.style_manager_btn.setCursor(Qt.PointingHandCursor)
+        self.style_manager_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.style_manager_btn.clicked.connect(self.open_style_manager)
         select_layout.addWidget(self.style_manager_btn)
 
         self.help_btn = QPushButton(self.tr(" Help"))
         self.help_btn.setIcon(QgsApplication.getThemeIcon("mActionHelpContents.svg"))
-        self.help_btn.setCursor(Qt.PointingHandCursor)
+        self.help_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.help_btn.clicked.connect(self.open_help)
         select_layout.addWidget(self.help_btn)
 
@@ -244,7 +248,7 @@ class ColorRampBrowserDialog(QDialog):
 
         self.apply_btn = QPushButton(self.tr(" Apply Changes"))
         self.apply_btn.setIcon(QgsApplication.getThemeIcon("mActionSaveAllEdits.svg"))
-        self.apply_btn.setCursor(Qt.PointingHandCursor)
+        self.apply_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.apply_btn.clicked.connect(self.apply_changes)
         self.apply_btn.setEnabled(False)
         self.apply_btn.setStyleSheet("""
@@ -271,7 +275,7 @@ class ColorRampBrowserDialog(QDialog):
 
         self.close_btn = QPushButton(self.tr(" Close"))
         self.close_btn.setIcon(QgsApplication.getThemeIcon("mIconClose.svg"))
-        self.close_btn.setCursor(Qt.PointingHandCursor)
+        self.close_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.close_btn.clicked.connect(self.close)
         self.close_btn.setStyleSheet("""
             QPushButton {
@@ -434,8 +438,8 @@ class ColorRampBrowserDialog(QDialog):
             category_item.setExpanded(True)
 
             # Make category checkable
-            category_item.setFlags(category_item.flags() | Qt.ItemIsUserCheckable)
-            category_item.setCheckState(0, Qt.Unchecked)
+            category_item.setFlags(category_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+            category_item.setCheckState(0, Qt.CheckState.Unchecked)
 
             # Store reference
             self.category_items[category_name] = category_item
@@ -454,12 +458,14 @@ class ColorRampBrowserDialog(QDialog):
                 ramp_name = self.get_ramp_name_from_filename(file_path.name)
                 is_installed = ramp_name in existing_ramps
 
-                file_item.setFlags(file_item.flags() | Qt.ItemIsUserCheckable)
-                file_item.setCheckState(0, Qt.Checked if is_installed else Qt.Unchecked)
-                file_item.setData(0, Qt.UserRole + 1, 1 if is_installed else 0)
+                file_item.setFlags(file_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+                file_item.setCheckState(
+                    0, Qt.CheckState.Checked if is_installed else Qt.CheckState.Unchecked
+                )
+                file_item.setData(0, SORT_ROLE, 1 if is_installed else 0)
 
-                file_item.setData(0, Qt.UserRole, str(file_path))
-                file_item.setData(1, Qt.UserRole, ramp_name)
+                file_item.setData(0, Qt.ItemDataRole.UserRole, str(file_path))
+                file_item.setData(1, Qt.ItemDataRole.UserRole, ramp_name)
 
                 self.initial_state[ramp_name] = is_installed
 
@@ -521,16 +527,16 @@ class ColorRampBrowserDialog(QDialog):
         total = category_item.childCount()
 
         for i in range(total):
-            if category_item.child(i).checkState(0) == Qt.Checked:
+            if category_item.child(i).checkState(0) == Qt.CheckState.Checked:
                 checked += 1
 
         # Determine new state
         if checked == 0:
-            new_state = Qt.Unchecked
+            new_state = Qt.CheckState.Unchecked
         elif checked == total:
-            new_state = Qt.Checked
+            new_state = Qt.CheckState.Checked
         else:
-            new_state = Qt.PartiallyChecked
+            new_state = Qt.CheckState.PartiallyChecked
 
         # Apply state (blockSignals should already be True from caller)
         category_item.setCheckState(0, new_state)
@@ -549,19 +555,19 @@ class ColorRampBrowserDialog(QDialog):
 
             # PartiallyChecked should not occur from a user click,
             # but if it does, treat it as Checked (select all)
-            if state == Qt.PartiallyChecked:
-                state = Qt.Checked
-                item.setCheckState(0, Qt.Checked)
+            if state == Qt.CheckState.PartiallyChecked:
+                state = Qt.CheckState.Checked
+                item.setCheckState(0, Qt.CheckState.Checked)
 
             # Collect all children first to avoid index shifting during sort
             children = [item.child(i) for i in range(item.childCount())]
             for child in children:
                 child.setCheckState(0, state)
-                child.setData(0, Qt.UserRole + 1, 1 if state == Qt.Checked else 0)
+                child.setData(0, SORT_ROLE, 1 if state == Qt.CheckState.Checked else 0)
         else:
             # File item clicked — update its data and parent category
-            is_checked = item.checkState(0) == Qt.Checked
-            item.setData(0, Qt.UserRole + 1, 1 if is_checked else 0)
+            is_checked = item.checkState(0) == Qt.CheckState.Checked
+            item.setData(0, SORT_ROLE, 1 if is_checked else 0)
 
             parent = item.parent()
             if parent and self._is_category_item(parent):
@@ -575,8 +581,8 @@ class ColorRampBrowserDialog(QDialog):
         """Enable/disable Apply button based on changes."""
         has_changes = False
         for item in self._get_file_items():
-            ramp_name = item.data(1, Qt.UserRole)
-            is_checked = item.checkState(0) == Qt.Checked
+            ramp_name = item.data(1, Qt.ItemDataRole.UserRole)
+            is_checked = item.checkState(0) == Qt.CheckState.Checked
             initial = self.initial_state.get(ramp_name, False)
             if is_checked != initial:
                 has_changes = True
@@ -590,9 +596,9 @@ class ColorRampBrowserDialog(QDialog):
         for cat_item in self.category_items.values():
             children = [cat_item.child(i) for i in range(cat_item.childCount())]
             for child in children:
-                child.setCheckState(0, Qt.Checked)
-                child.setData(0, Qt.UserRole + 1, 1)
-            cat_item.setCheckState(0, Qt.Checked)
+                child.setCheckState(0, Qt.CheckState.Checked)
+                child.setData(0, SORT_ROLE, 1)
+            cat_item.setCheckState(0, Qt.CheckState.Checked)
         self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
@@ -604,9 +610,9 @@ class ColorRampBrowserDialog(QDialog):
         for cat_item in self.category_items.values():
             children = [cat_item.child(i) for i in range(cat_item.childCount())]
             for child in children:
-                child.setCheckState(0, Qt.Unchecked)
-                child.setData(0, Qt.UserRole + 1, 0)
-            cat_item.setCheckState(0, Qt.Unchecked)
+                child.setCheckState(0, Qt.CheckState.Unchecked)
+                child.setData(0, SORT_ROLE, 0)
+            cat_item.setCheckState(0, Qt.CheckState.Unchecked)
         self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
@@ -616,10 +622,10 @@ class ColorRampBrowserDialog(QDialog):
         self.file_tree.blockSignals(True)
         self.file_tree.setSortingEnabled(False)
         for item in self._get_file_items():
-            ramp_name = item.data(1, Qt.UserRole)
+            ramp_name = item.data(1, Qt.ItemDataRole.UserRole)
             initial = self.initial_state.get(ramp_name, False)
-            item.setCheckState(0, Qt.Checked if initial else Qt.Unchecked)
-            item.setData(0, Qt.UserRole + 1, 1 if initial else 0)
+            item.setCheckState(0, Qt.CheckState.Checked if initial else Qt.CheckState.Unchecked)
+            item.setData(0, SORT_ROLE, 1 if initial else 0)
 
         # Update categories
         for cat_item in self.category_items.values():
@@ -644,9 +650,9 @@ class ColorRampBrowserDialog(QDialog):
         to_remove = []
 
         for item in self._get_file_items():
-            file_path = item.data(0, Qt.UserRole)
-            ramp_name = item.data(1, Qt.UserRole)
-            is_checked = item.checkState(0) == Qt.Checked
+            file_path = item.data(0, Qt.ItemDataRole.UserRole)
+            ramp_name = item.data(1, Qt.ItemDataRole.UserRole)
+            is_checked = item.checkState(0) == Qt.CheckState.Checked
             is_installed = ramp_name in existing_ramps
 
             if is_checked and not is_installed:
@@ -685,13 +691,19 @@ class ColorRampBrowserDialog(QDialog):
         # Show confirmation dialog
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle(self.tr("Confirm Changes"))
-        msg_box.setTextFormat(Qt.RichText)
+        msg_box.setTextFormat(Qt.TextFormat.RichText)
         msg_box.setText("<br>".join(msg_parts))
-        msg_box.setIcon(QMessageBox.Question)
-        msg_box.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        msg_box.setDefaultButton(QMessageBox.Cancel)
+        msg_box.setIcon(QMessageBox.Icon.Question)
+        msg_box.setStandardButtons(
+            QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel
+        )
+        msg_box.setDefaultButton(QMessageBox.StandardButton.Cancel)
 
-        if msg_box.exec_() != QMessageBox.Ok:
+        # exec() works on both PyQt5 and PyQt6 (exec_() was removed in PyQt6).
+        # Its return value is an int under PyQt6, so compare the clicked button
+        # instead of the return code to stay independent of enum/int semantics.
+        msg_box.exec()
+        if msg_box.standardButton(msg_box.clickedButton()) != QMessageBox.StandardButton.Ok:
             return
 
         # Apply changes
@@ -707,7 +719,9 @@ class ColorRampBrowserDialog(QDialog):
         for ramp_name, file_path in to_install:
             try:
                 if self.style.importXml(file_path):
-                    self.style.tagSymbol(QgsStyle.ColorrampEntity, ramp_name, [self.TAG_NAME])
+                    self.style.tagSymbol(
+                        QgsStyle.StyleEntity.ColorrampEntity, ramp_name, [self.TAG_NAME]
+                    )
                     installed_count += 1
                 else:
                     errors.append(f"Failed to import: {ramp_name}")
