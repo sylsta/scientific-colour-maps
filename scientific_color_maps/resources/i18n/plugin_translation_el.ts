@@ -4,149 +4,149 @@
 <context>
     <name>ColorRampBrowserDialog</name>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="82"/>
+        <location filename="../../gui/dlg_file_browser.py" line="103"/>
         <source>Scientific Color Maps</source>
         <translation>Επιστημονικοί χρωματικοί χάρτες</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="99"/>
+        <location filename="../../gui/dlg_file_browser.py" line="120"/>
         <source>Color Map Palettes</source>
         <translation>Παλέτες χρωματικών χαρτών</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="164"/>
+        <location filename="../../gui/dlg_file_browser.py" line="186"/>
         <source>Select All</source>
         <translation>Επιλογή όλων</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="170"/>
+        <location filename="../../gui/dlg_file_browser.py" line="192"/>
         <source>Select None</source>
         <translation>Αποεπιλογή όλων</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="176"/>
+        <location filename="../../gui/dlg_file_browser.py" line="198"/>
         <source>Restore</source>
         <translation>Επαναφορά</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="184"/>
+        <location filename="../../gui/dlg_file_browser.py" line="206"/>
         <source>Style Manager</source>
         <translation>Διαχειριστής στυλ</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="190"/>
+        <location filename="../../gui/dlg_file_browser.py" line="212"/>
         <source>Help</source>
         <translation>Βοήθεια</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="203"/>
+        <location filename="../../gui/dlg_file_browser.py" line="225"/>
         <source>Apply Changes</source>
         <translation>Εφαρμογή αλλαγών</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="213"/>
+        <location filename="../../gui/dlg_file_browser.py" line="235"/>
         <source>Close</source>
         <translation>Κλείσιμο</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="375"/>
+        <location filename="../../gui/dlg_file_browser.py" line="397"/>
         <source>General</source>
         <translation>Γενικά</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="376"/>
+        <location filename="../../gui/dlg_file_browser.py" line="398"/>
         <source>Categorical Palettes</source>
         <translation>Κατηγορικές παλέτες</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="701"/>
+        <location filename="../../gui/dlg_file_browser.py" line="711"/>
         <source>Confirm Changes</source>
         <translation>Επιβεβαίωση αλλαγών</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="124"/>
+        <location filename="../../gui/dlg_file_browser.py" line="145"/>
         <source>Color Ramp</source>
         <translation>Χρωματική κλίμακα</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="125"/>
+        <location filename="../../gui/dlg_file_browser.py" line="146"/>
         <source>Preview</source>
         <translation>Προεπισκόπηση</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="126"/>
+        <location filename="../../gui/dlg_file_browser.py" line="147"/>
         <source>Palette</source>
         <translation>Παλέτα</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="127"/>
+        <location filename="../../gui/dlg_file_browser.py" line="148"/>
         <source>Size</source>
         <translation>Μέγεθος</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="345"/>
+        <location filename="../../gui/dlg_file_browser.py" line="367"/>
         <source>Error</source>
         <translation>Σφάλμα</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="489"/>
-        <location filename="../../gui/dlg_file_browser.py" line="753"/>
+        <location filename="../../gui/dlg_file_browser.py" line="514"/>
+        <location filename="../../gui/dlg_file_browser.py" line="763"/>
         <source>{} installed</source>
         <translation>{} εγκατεστημένες</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="344"/>
+        <location filename="../../gui/dlg_file_browser.py" line="366"/>
         <source>Directory not found: {}</source>
         <translation>Ο κατάλογος δεν βρέθηκε: {}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="393"/>
+        <location filename="../../gui/dlg_file_browser.py" line="418"/>
         <source>{} items</source>
         <translation>{} στοιχεία</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="475"/>
+        <location filename="../../gui/dlg_file_browser.py" line="500"/>
         <source>{} palettes available ({} unavailable: name already used)</source>
         <translation>{} διαθέσιμες παλέτες ({} μη διαθέσιμες: το όνομα χρησιμοποιείται ήδη)</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="480"/>
+        <location filename="../../gui/dlg_file_browser.py" line="505"/>
         <source>{} palettes available</source>
         <translation>{} διαθέσιμες παλέτες</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="355"/>
+        <location filename="../../gui/dlg_file_browser.py" line="377"/>
         <source>Error searching files: {}</source>
         <translation>Σφάλμα αναζήτησης αρχείων: {}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="434"/>
+        <location filename="../../gui/dlg_file_browser.py" line="458"/>
         <source>A color ramp named &apos;{}&apos; already exists in your style and was not installed by this plugin. It is left untouched.</source>
         <translation>Μια χρωματική κλίμακα με όνομα «{}» υπάρχει ήδη στο στυλ σας και δεν εγκαταστάθηκε από αυτή την επέκταση. Δεν θα τροποποιηθεί.</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="670"/>
+        <location filename="../../gui/dlg_file_browser.py" line="680"/>
         <source>Install {} palette(s):</source>
         <translation>Εγκατάσταση {} παλετών:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="687"/>
+        <location filename="../../gui/dlg_file_browser.py" line="697"/>
         <source>Remove {} palette(s):</source>
         <translation>Αφαίρεση {} παλετών:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="755"/>
+        <location filename="../../gui/dlg_file_browser.py" line="765"/>
         <source>{} removed</source>
         <translation>{} αφαιρέθηκαν</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="757"/>
+        <location filename="../../gui/dlg_file_browser.py" line="767"/>
         <source>{} errors</source>
         <translation>{} σφάλματα</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="678"/>
-        <location filename="../../gui/dlg_file_browser.py" line="695"/>
+        <location filename="../../gui/dlg_file_browser.py" line="688"/>
+        <location filename="../../gui/dlg_file_browser.py" line="705"/>
         <source>... and {} more</source>
         <translation>... και {} ακόμη</translation>
     </message>

@@ -30,25 +30,46 @@ from scientific_color_maps.__about__ import DIR_PLUGIN_ROOT
 from scientific_color_maps.toolbelt import PlgLogger, PlgOptionsManager
 from scientific_color_maps.toolbelt.style_sync import TAG_NAME, plugin_ramp_names
 
-# Custom data role used to sort items by their checked state.
-# Fully-qualified enums are required by PyQt6 and also accepted by PyQt5.
-SORT_ROLE = int(Qt.ItemDataRole.UserRole) + 1
-# Custom data role flagging a ramp whose name is already used in the user's
-# style by a ramp NOT installed by this plugin (left untouched).
-CONFLICT_ROLE = SORT_ROLE + 1
+# Custom data roles (fully-qualified enums: required by PyQt6, accepted by PyQt5)
+# CONFLICT_ROLE flags a ramp whose name is already used in the user's style by a
+# ramp NOT installed by this plugin (left untouched).
+CONFLICT_ROLE = int(Qt.ItemDataRole.UserRole) + 2
+# File size in bytes, used to sort the "Size" column numerically
+SIZE_ROLE = int(Qt.ItemDataRole.UserRole) + 3
+# Fixed display order of the category rows (General first)
+ORDER_ROLE = int(Qt.ItemDataRole.UserRole) + 4
 
 
 class SortableTreeWidgetItem(QTreeWidgetItem):
-    """TreeWidgetItem with custom sorting for checkbox column."""
+    """Tree item with a stable, meaningful sort order.
+
+    - category rows keep their fixed order (ORDER_ROLE), whatever the column;
+    - "Size" sorts on the size in bytes, not on the "12.3 KB" text;
+    - "Palette" sorts on the palette name, then the ramp name;
+    - every other column (and every tie) sorts on the ramp name, case-insensitive.
+
+    The checked state is never used as a sort key, so checking an item does not
+    move it in the list.
+    """
 
     def __lt__(self, other):
-        column = self.treeWidget().sortColumn()
-        if column == 0:
-            self_val = self.data(0, SORT_ROLE)
-            other_val = other.data(0, SORT_ROLE)
-            if self_val is not None and other_val is not None:
-                return self_val < other_val
-        return super().__lt__(other)
+        self_order, other_order = self.data(0, ORDER_ROLE), other.data(0, ORDER_ROLE)
+        if self_order is not None and other_order is not None:
+            return self_order < other_order
+
+        tree = self.treeWidget()
+        column = tree.sortColumn() if tree else 0
+
+        if column == 3:
+            self_size, other_size = self.data(3, SIZE_ROLE), other.data(3, SIZE_ROLE)
+            if self_size is not None and other_size is not None and self_size != other_size:
+                return self_size < other_size
+        elif column == 2:
+            self_pal, other_pal = self.text(2).lower(), other.text(2).lower()
+            if self_pal != other_pal:
+                return self_pal < other_pal
+
+        return self.text(0).lower() < other.text(0).lower()
 
 
 class ColorRampBrowserDialog(QDialog):
@@ -129,6 +150,7 @@ class ColorRampBrowserDialog(QDialog):
         self.file_tree.setAlternatingRowColors(True)
         self.file_tree.setRootIsDecorated(True)
         self.file_tree.setSortingEnabled(True)
+        self.file_tree.sortByColumn(0, Qt.SortOrder.AscendingOrder)
         self.file_tree.setIndentation(20)
         self.file_tree.setAnimated(True)
         self.file_tree.setIconSize(QSize(100, 16))
@@ -384,7 +406,10 @@ class ColorRampBrowserDialog(QDialog):
                 continue
 
             # Create category item
-            category_item = QTreeWidgetItem(self.file_tree)
+            category_item = SortableTreeWidgetItem(self.file_tree)
+            category_item.setData(
+                0, ORDER_ROLE, ['General', 'Categorical Palettes'].index(category_name)
+            )
             config = category_config.get(category_name)
             category_item.setIcon(0, config['icon'])
             category_item.setText(0, category_labels[category_name])
@@ -422,7 +447,6 @@ class ColorRampBrowserDialog(QDialog):
                 file_item.setCheckState(
                     0, Qt.CheckState.Checked if is_installed else Qt.CheckState.Unchecked
                 )
-                file_item.setData(0, SORT_ROLE, 1 if is_installed else 0)
 
                 file_item.setData(0, Qt.ItemDataRole.UserRole, str(file_path))
                 file_item.setData(1, Qt.ItemDataRole.UserRole, ramp_name)
@@ -452,6 +476,7 @@ class ColorRampBrowserDialog(QDialog):
                 try:
                     size = file_path.stat().st_size
                     file_item.setText(3, self.format_file_size(size))
+                    file_item.setData(3, SIZE_ROLE, size)
                 except OSError:
                     file_item.setText(3, "—")
 
@@ -526,7 +551,6 @@ class ColorRampBrowserDialog(QDialog):
             return
 
         self.file_tree.blockSignals(True)
-        self.file_tree.setSortingEnabled(False)
 
         if self._is_category_item(item):
             # Category clicked — propagate to all children
@@ -544,17 +568,12 @@ class ColorRampBrowserDialog(QDialog):
                 if self._is_conflict(child):
                     continue
                 child.setCheckState(0, state)
-                child.setData(0, SORT_ROLE, 1 if state == Qt.CheckState.Checked else 0)
         else:
-            # File item clicked — update its data and parent category
-            is_checked = item.checkState(0) == Qt.CheckState.Checked
-            item.setData(0, SORT_ROLE, 1 if is_checked else 0)
-
+            # File item clicked — update its parent category
             parent = item.parent()
             if parent and self._is_category_item(parent):
                 self._update_category_check_state(parent)
 
-        self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
 
@@ -573,50 +592,41 @@ class ColorRampBrowserDialog(QDialog):
     def select_all(self):
         """Select all file items."""
         self.file_tree.blockSignals(True)
-        self.file_tree.setSortingEnabled(False)
         for cat_item in self.category_items.values():
             children = [cat_item.child(i) for i in range(cat_item.childCount())]
             for child in children:
                 if self._is_conflict(child):
                     continue
                 child.setCheckState(0, Qt.CheckState.Checked)
-                child.setData(0, SORT_ROLE, 1)
             self._update_category_check_state(cat_item)
-        self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
 
     def select_none(self):
         """Deselect all file items."""
         self.file_tree.blockSignals(True)
-        self.file_tree.setSortingEnabled(False)
         for cat_item in self.category_items.values():
             children = [cat_item.child(i) for i in range(cat_item.childCount())]
             for child in children:
                 if self._is_conflict(child):
                     continue
                 child.setCheckState(0, Qt.CheckState.Unchecked)
-                child.setData(0, SORT_ROLE, 0)
             self._update_category_check_state(cat_item)
-        self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.update_apply_button()
 
     def restore_selection(self):
         """Restore initial selection state."""
         self.file_tree.blockSignals(True)
-        self.file_tree.setSortingEnabled(False)
         for item in self._get_file_items():
             ramp_name = item.data(1, Qt.ItemDataRole.UserRole)
             initial = self.initial_state.get(ramp_name, False)
             item.setCheckState(0, Qt.CheckState.Checked if initial else Qt.CheckState.Unchecked)
-            item.setData(0, SORT_ROLE, 1 if initial else 0)
 
         # Update categories
         for cat_item in self.category_items.values():
             self._update_category_check_state(cat_item)
 
-        self.file_tree.setSortingEnabled(True)
         self.file_tree.blockSignals(False)
         self.apply_btn.setEnabled(False)
 
