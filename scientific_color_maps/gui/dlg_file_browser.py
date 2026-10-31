@@ -719,11 +719,8 @@ class ColorRampBrowserDialog(QDialog):
         removed_count = 0
         errors = []
 
-        if to_install:
-            existing_tags = self.style.tags()
-            if TAG_NAME not in existing_tags:
-                self.style.addTag(TAG_NAME)
-
+        # Note: tagSymbol() creates TAG_NAME if needed. It must not be created
+        # beforehand: an unused tag is deleted at once by toolbelt.style_sync.
         for ramp_name, file_path in to_install:
             try:
                 if self.style.importXml(file_path):

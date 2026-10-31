@@ -90,7 +90,7 @@
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="489"/>
-        <location filename="../../gui/dlg_file_browser.py" line="756"/>
+        <location filename="../../gui/dlg_file_browser.py" line="753"/>
         <source>{} installed</source>
         <translation>{} installata/e</translation>
     </message>
@@ -135,12 +135,12 @@
         <translation>Rimuovi {} tavolozza/e:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="758"/>
+        <location filename="../../gui/dlg_file_browser.py" line="755"/>
         <source>{} removed</source>
         <translation>{} rimossa/e</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="760"/>
+        <location filename="../../gui/dlg_file_browser.py" line="757"/>
         <source>{} errors</source>
         <translation>{} errore/i</translation>
     </message>
@@ -154,33 +154,33 @@
 <context>
     <name>ScientificColorMap</name>
     <message>
-        <location filename="../../plugin_main.py" line="98"/>
+        <location filename="../../plugin_main.py" line="99"/>
         <source>Help</source>
         <translation>Aiuto</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="107"/>
+        <location filename="../../plugin_main.py" line="108"/>
         <source>Settings</source>
         <translation>Impostazioni</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="118"/>
-        <location filename="../../plugin_main.py" line="141"/>
+        <location filename="../../plugin_main.py" line="119"/>
+        <location filename="../../plugin_main.py" line="142"/>
         <source>Browse XML Color Maps</source>
         <translation>Sfoglia le mappe di colori XML</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="153"/>
+        <location filename="../../plugin_main.py" line="154"/>
         <source>{} - Documentation</source>
         <translation>{} - Documentazione</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="235"/>
+        <location filename="../../plugin_main.py" line="252"/>
         <source>Everything ran OK.</source>
         <translation>Tutto è andato a buon fine.</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="241"/>
+        <location filename="../../plugin_main.py" line="258"/>
         <source>Houston, we&apos;ve got a problem: {}</source>
         <translation>Houston, abbiamo un problema: {}</translation>
     </message>

@@ -10,7 +10,7 @@ from pathlib import Path
 # PyQGIS
 from qgis.core import Qgis, QgsApplication, QgsSettings, QgsStyle
 from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTranslator, QUrl
+from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTimer, QTranslator, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon, QKeySequence
 
 try:
@@ -52,6 +52,7 @@ class ScientificColorMap:
         self.toolbar = None
         self.style = None
         self.style_signals = ()
+        self.style_sync_pending = False
 
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
@@ -173,8 +174,22 @@ class ScientificColorMap:
         return QCoreApplication.translate(self.__class__.__name__, message)
 
     def on_style_changed(self, *args):
-        """Keep the smart group in sync with the plugin ramps of the style."""
-        sync_smart_group(self.style)
+        """Schedule a smart group / tag sync once the current style operation ends.
+
+        The sync must NOT run synchronously: QgsStyle emits its signals in the
+        middle of operations (e.g. tagSymbol() creates the tag, emits
+        groupsModified, and only then attaches it to the ramp). Deferring also
+        merges the many signals of a batch install/removal into a single sync.
+        """
+        if not self.style_sync_pending:
+            self.style_sync_pending = True
+            QTimer.singleShot(0, self.run_style_sync)
+
+    def run_style_sync(self):
+        """Run the deferred sync (no-op if the plugin was unloaded meanwhile)."""
+        self.style_sync_pending = False
+        if self.style is not None:
+            sync_smart_group(self.style)
 
     def unload(self):
         """Cleans up when plugin is disabled/uninstalled."""
@@ -184,6 +199,8 @@ class ScientificColorMap:
                 signal.disconnect(self.on_style_changed)
             except TypeError:
                 pass
+        self.style_signals = ()
+        self.style = None  # a sync still scheduled will do nothing
         # -- Clean up menu
         self.iface.removePluginMenu(__title__, self.action_help)
         self.iface.removePluginMenu(__title__, self.action_settings)

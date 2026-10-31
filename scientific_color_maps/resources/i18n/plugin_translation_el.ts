@@ -90,7 +90,7 @@
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="489"/>
-        <location filename="../../gui/dlg_file_browser.py" line="756"/>
+        <location filename="../../gui/dlg_file_browser.py" line="753"/>
         <source>{} installed</source>
         <translation>{} εγκατεστημένες</translation>
     </message>
@@ -135,12 +135,12 @@
         <translation>Αφαίρεση {} παλετών:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="758"/>
+        <location filename="../../gui/dlg_file_browser.py" line="755"/>
         <source>{} removed</source>
         <translation>{} αφαιρέθηκαν</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="760"/>
+        <location filename="../../gui/dlg_file_browser.py" line="757"/>
         <source>{} errors</source>
         <translation>{} σφάλματα</translation>
     </message>
@@ -154,33 +154,33 @@
 <context>
     <name>ScientificColorMap</name>
     <message>
-        <location filename="../../plugin_main.py" line="98"/>
+        <location filename="../../plugin_main.py" line="99"/>
         <source>Help</source>
         <translation>Βοήθεια</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="107"/>
+        <location filename="../../plugin_main.py" line="108"/>
         <source>Settings</source>
         <translation>Ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="118"/>
-        <location filename="../../plugin_main.py" line="141"/>
+        <location filename="../../plugin_main.py" line="119"/>
+        <location filename="../../plugin_main.py" line="142"/>
         <source>Browse XML Color Maps</source>
         <translation>Περιήγηση χρωματικών χαρτών XML</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="153"/>
+        <location filename="../../plugin_main.py" line="154"/>
         <source>{} - Documentation</source>
         <translation>{} - Τεκμηρίωση</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="235"/>
+        <location filename="../../plugin_main.py" line="252"/>
         <source>Everything ran OK.</source>
         <translation>Όλα εκτελέστηκαν σωστά.</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="241"/>
+        <location filename="../../plugin_main.py" line="258"/>
         <source>Houston, we&apos;ve got a problem: {}</source>
         <translation>Χιούστον, έχουμε πρόβλημα: {}</translation>
     </message>

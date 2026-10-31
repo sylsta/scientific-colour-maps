@@ -90,7 +90,7 @@
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="489"/>
-        <location filename="../../gui/dlg_file_browser.py" line="756"/>
+        <location filename="../../gui/dlg_file_browser.py" line="753"/>
         <source>{} installed</source>
         <translation>已安装 {} 个</translation>
     </message>
@@ -135,12 +135,12 @@
         <translation>移除 {} 个调色板：</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="758"/>
+        <location filename="../../gui/dlg_file_browser.py" line="755"/>
         <source>{} removed</source>
         <translation>已移除 {} 个</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="760"/>
+        <location filename="../../gui/dlg_file_browser.py" line="757"/>
         <source>{} errors</source>
         <translation>{} 个错误</translation>
     </message>
@@ -154,33 +154,33 @@
 <context>
     <name>ScientificColorMap</name>
     <message>
-        <location filename="../../plugin_main.py" line="98"/>
+        <location filename="../../plugin_main.py" line="99"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="107"/>
+        <location filename="../../plugin_main.py" line="108"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="118"/>
-        <location filename="../../plugin_main.py" line="141"/>
+        <location filename="../../plugin_main.py" line="119"/>
+        <location filename="../../plugin_main.py" line="142"/>
         <source>Browse XML Color Maps</source>
         <translation>浏览 XML 颜色映射</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="153"/>
+        <location filename="../../plugin_main.py" line="154"/>
         <source>{} - Documentation</source>
         <translation>{} - 文档</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="235"/>
+        <location filename="../../plugin_main.py" line="252"/>
         <source>Everything ran OK.</source>
         <translation>一切运行正常。</translation>
     </message>
     <message>
-        <location filename="../../plugin_main.py" line="241"/>
+        <location filename="../../plugin_main.py" line="258"/>
         <source>Houston, we&apos;ve got a problem: {}</source>
         <translation>休斯顿，我们遇到了问题：{}</translation>
     </message>
