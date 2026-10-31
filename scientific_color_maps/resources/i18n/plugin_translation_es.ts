@@ -4,149 +4,149 @@
 <context>
     <name>ColorRampBrowserDialog</name>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="83"/>
+        <location filename="../../gui/dlg_file_browser.py" line="86"/>
         <source>Scientific Color Maps</source>
         <translation>Mapas de colores científicos</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="100"/>
+        <location filename="../../gui/dlg_file_browser.py" line="103"/>
         <source>Color Map Palettes</source>
         <translation>Paletas de mapas de colores</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="165"/>
+        <location filename="../../gui/dlg_file_browser.py" line="168"/>
         <source>Select All</source>
         <translation>Seleccionar todo</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="171"/>
+        <location filename="../../gui/dlg_file_browser.py" line="174"/>
         <source>Select None</source>
         <translation>Deseleccionar todo</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="177"/>
+        <location filename="../../gui/dlg_file_browser.py" line="180"/>
         <source>Restore</source>
         <translation>Restaurar</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="185"/>
+        <location filename="../../gui/dlg_file_browser.py" line="188"/>
         <source>Style Manager</source>
         <translation>Gestor de estilos</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="191"/>
+        <location filename="../../gui/dlg_file_browser.py" line="194"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="204"/>
+        <location filename="../../gui/dlg_file_browser.py" line="207"/>
         <source>Apply Changes</source>
         <translation>Aplicar cambios</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="214"/>
+        <location filename="../../gui/dlg_file_browser.py" line="217"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="381"/>
+        <location filename="../../gui/dlg_file_browser.py" line="411"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="382"/>
+        <location filename="../../gui/dlg_file_browser.py" line="412"/>
         <source>Categorical Palettes</source>
         <translation>Paletas categóricas</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="707"/>
+        <location filename="../../gui/dlg_file_browser.py" line="737"/>
         <source>Confirm Changes</source>
         <translation>Confirmar cambios</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="125"/>
+        <location filename="../../gui/dlg_file_browser.py" line="128"/>
         <source>Color Ramp</source>
         <translation>Rampa de color</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="126"/>
+        <location filename="../../gui/dlg_file_browser.py" line="129"/>
         <source>Preview</source>
         <translation>Vista previa</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="127"/>
+        <location filename="../../gui/dlg_file_browser.py" line="130"/>
         <source>Palette</source>
         <translation>Paleta</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="128"/>
+        <location filename="../../gui/dlg_file_browser.py" line="131"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="351"/>
+        <location filename="../../gui/dlg_file_browser.py" line="381"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="495"/>
-        <location filename="../../gui/dlg_file_browser.py" line="757"/>
+        <location filename="../../gui/dlg_file_browser.py" line="525"/>
+        <location filename="../../gui/dlg_file_browser.py" line="792"/>
         <source>{} installed</source>
         <translation>{} instalada(s)</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="350"/>
+        <location filename="../../gui/dlg_file_browser.py" line="380"/>
         <source>Directory not found: {}</source>
         <translation>Directorio no encontrado: {}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="399"/>
+        <location filename="../../gui/dlg_file_browser.py" line="429"/>
         <source>{} items</source>
         <translation>{} elementos</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="481"/>
+        <location filename="../../gui/dlg_file_browser.py" line="511"/>
         <source>{} palettes available ({} unavailable: name already used)</source>
         <translation>{} paletas disponibles ({} no disponible(s): nombre ya utilizado)</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="486"/>
+        <location filename="../../gui/dlg_file_browser.py" line="516"/>
         <source>{} palettes available</source>
         <translation>{} paletas disponibles</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="361"/>
+        <location filename="../../gui/dlg_file_browser.py" line="391"/>
         <source>Error searching files: {}</source>
         <translation>Error al buscar archivos: {}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="440"/>
+        <location filename="../../gui/dlg_file_browser.py" line="470"/>
         <source>A color ramp named &apos;{}&apos; already exists in your style and was not installed by this plugin. It is left untouched.</source>
         <translation>Ya existe en su estilo una rampa de color llamada «{}» que no fue instalada por esta extensión. No se modificará.</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="676"/>
+        <location filename="../../gui/dlg_file_browser.py" line="706"/>
         <source>Install {} palette(s):</source>
         <translation>Instalar {} paleta(s):</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="693"/>
+        <location filename="../../gui/dlg_file_browser.py" line="723"/>
         <source>Remove {} palette(s):</source>
         <translation>Eliminar {} paleta(s):</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="759"/>
+        <location filename="../../gui/dlg_file_browser.py" line="794"/>
         <source>{} removed</source>
         <translation>{} eliminada(s)</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="761"/>
+        <location filename="../../gui/dlg_file_browser.py" line="796"/>
         <source>{} errors</source>
         <translation>{} error(es)</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="684"/>
-        <location filename="../../gui/dlg_file_browser.py" line="701"/>
+        <location filename="../../gui/dlg_file_browser.py" line="714"/>
+        <location filename="../../gui/dlg_file_browser.py" line="731"/>
         <source>... and {} more</source>
         <translation>... y {} más</translation>
     </message>

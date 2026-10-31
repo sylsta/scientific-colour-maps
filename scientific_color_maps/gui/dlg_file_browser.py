@@ -54,6 +54,9 @@ class ColorRampBrowserDialog(QDialog):
     """Dialog to browse XML color map files and manage palettes in Style Manager."""
 
     TAG_NAME = "Sci.color.maps"
+    # Style Manager smart group listing the ramps installed by this plugin
+    # (condition: tagged TAG_NAME). Deleted as soon as it would be empty.
+    SMART_GROUP_NAME = "Scientific Color Maps v8"
 
     # Status badge colours: saturated backgrounds with white text stay readable
     # on both light and dark QGIS themes. Every other widget uses the active
@@ -331,6 +334,30 @@ class ColorRampBrowserDialog(QDialog):
             self.style.symbolsWithTag(QgsStyle.StyleEntity.ColorrampEntity, tag_id)
         )
 
+    def _sync_smart_group(self):
+        """Create the smart group if plugin ramps exist, delete it if none remain."""
+        has_ramps = bool(self._plugin_ramp_names())
+        exists = self.SMART_GROUP_NAME in self.style.smartgroupNames()
+
+        if has_ramps and not exists:
+            group_id = self.style.addSmartgroup(
+                self.SMART_GROUP_NAME, "AND", [self.TAG_NAME], [], [], []
+            )
+            if not group_id:
+                self.log(
+                    message=f"Could not create smart group: {self.SMART_GROUP_NAME}",
+                    log_level=Qgis.MessageLevel.Warning,
+                )
+        elif not has_ramps and exists:
+            group_id = self.style.smartgroupId(self.SMART_GROUP_NAME)  # 0 if not found
+            if group_id and not self.style.remove(
+                QgsStyle.StyleEntity.SmartgroupEntity, group_id
+            ):
+                self.log(
+                    message=f"Could not remove smart group: {self.SMART_GROUP_NAME}",
+                    log_level=Qgis.MessageLevel.Warning,
+                )
+
     @staticmethod
     def _is_conflict(item) -> bool:
         """True if the item's ramp name is already used by a non-plugin ramp."""
@@ -342,6 +369,9 @@ class ColorRampBrowserDialog(QDialog):
         self.file_tree.clear()
         self.initial_state.clear()
         self.category_items.clear()
+
+        # keep the Style Manager smart group in line with the installed ramps
+        self._sync_smart_group()
 
         directory = DIR_PLUGIN_ROOT / self.plg_settings.default_color_maps_dir
         pattern = self.plg_settings.file_pattern
@@ -735,6 +765,11 @@ class ColorRampBrowserDialog(QDialog):
                 if self.style.importXml(file_path):
                     self.style.tagSymbol(
                         QgsStyle.StyleEntity.ColorrampEntity, ramp_name, [self.TAG_NAME]
+                    )
+                    # the XML files declare favorite="1": plugin ramps must not
+                    # be added to the user's favorites
+                    self.style.removeFavorite(
+                        QgsStyle.StyleEntity.ColorrampEntity, ramp_name
                     )
                     installed_count += 1
                 else:
