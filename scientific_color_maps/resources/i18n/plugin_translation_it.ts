@@ -64,6 +64,16 @@
         <translation>Conferma modifiche</translation>
     </message>
     <message>
+        <location filename="../../gui/dlg_file_browser.py" line="787"/>
+        <source>Some changes could not be applied</source>
+        <translation>Alcune modifiche non sono state applicate</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="791"/>
+        <source>See the details below. They are also written to the QGIS log panel.</source>
+        <translation>Vedi i dettagli qui sotto. Sono scritti anche nel pannello dei messaggi di QGIS.</translation>
+    </message>
+    <message>
         <location filename="../../gui/dlg_file_browser.py" line="145"/>
         <source>Color Ramp</source>
         <translation>Scala di colori</translation>
@@ -90,9 +100,14 @@
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="514"/>
-        <location filename="../../gui/dlg_file_browser.py" line="763"/>
+        <location filename="../../gui/dlg_file_browser.py" line="767"/>
         <source>{} installed</source>
         <translation>{} installata/e</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="789"/>
+        <source>{} change(s) could not be applied.</source>
+        <translation>{} modifica/e non applicata/e.</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="366"/>
@@ -135,12 +150,12 @@
         <translation>Rimuovi {} tavolozza/e:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="765"/>
+        <location filename="../../gui/dlg_file_browser.py" line="769"/>
         <source>{} removed</source>
         <translation>{} rimossa/e</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="767"/>
+        <location filename="../../gui/dlg_file_browser.py" line="771"/>
         <source>{} errors</source>
         <translation>{} errore/i</translation>
     </message>
@@ -149,6 +164,26 @@
         <location filename="../../gui/dlg_file_browser.py" line="705"/>
         <source>... and {} more</source>
         <translation>... e altre {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="747"/>
+        <source>Failed to import: {}</source>
+        <translation>Importazione non riuscita: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="749"/>
+        <source>Error installing {}: {}</source>
+        <translation>Errore durante l&apos;installazione di {}: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="756"/>
+        <source>Failed to remove: {}</source>
+        <translation>Rimozione non riuscita: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="758"/>
+        <source>Error removing {}: {}</source>
+        <translation>Errore durante la rimozione di {}: {}</translation>
     </message>
 </context>
 <context>

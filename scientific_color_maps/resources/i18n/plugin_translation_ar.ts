@@ -64,6 +64,16 @@
         <translation>تأكيد التغييرات</translation>
     </message>
     <message>
+        <location filename="../../gui/dlg_file_browser.py" line="787"/>
+        <source>Some changes could not be applied</source>
+        <translation>تعذر تطبيق بعض التغييرات</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="791"/>
+        <source>See the details below. They are also written to the QGIS log panel.</source>
+        <translation>راجع التفاصيل أدناه. كما تم تسجيلها في لوحة سجل QGIS.</translation>
+    </message>
+    <message>
         <location filename="../../gui/dlg_file_browser.py" line="145"/>
         <source>Color Ramp</source>
         <translation>تدرج الألوان</translation>
@@ -90,9 +100,14 @@
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="514"/>
-        <location filename="../../gui/dlg_file_browser.py" line="763"/>
+        <location filename="../../gui/dlg_file_browser.py" line="767"/>
         <source>{} installed</source>
         <translation>{} مثبتة</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="789"/>
+        <source>{} change(s) could not be applied.</source>
+        <translation>تعذر تطبيق {} من التغييرات.</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="366"/>
@@ -135,12 +150,12 @@
         <translation>إزالة {} لوحة:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="765"/>
+        <location filename="../../gui/dlg_file_browser.py" line="769"/>
         <source>{} removed</source>
         <translation>{} تمت إزالتها</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="767"/>
+        <location filename="../../gui/dlg_file_browser.py" line="771"/>
         <source>{} errors</source>
         <translation>{} أخطاء</translation>
     </message>
@@ -149,6 +164,26 @@
         <location filename="../../gui/dlg_file_browser.py" line="705"/>
         <source>... and {} more</source>
         <translation>... و{} أخرى</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="747"/>
+        <source>Failed to import: {}</source>
+        <translation>فشل الاستيراد: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="749"/>
+        <source>Error installing {}: {}</source>
+        <translation>خطأ أثناء تثبيت {}: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="756"/>
+        <source>Failed to remove: {}</source>
+        <translation>فشل الإزالة: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="758"/>
+        <source>Error removing {}: {}</source>
+        <translation>خطأ أثناء إزالة {}: {}</translation>
     </message>
 </context>
 <context>

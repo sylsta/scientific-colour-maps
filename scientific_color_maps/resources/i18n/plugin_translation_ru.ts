@@ -64,6 +64,16 @@
         <translation>Подтвердить изменения</translation>
     </message>
     <message>
+        <location filename="../../gui/dlg_file_browser.py" line="787"/>
+        <source>Some changes could not be applied</source>
+        <translation>Некоторые изменения не удалось применить</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="791"/>
+        <source>See the details below. They are also written to the QGIS log panel.</source>
+        <translation>Подробности приведены ниже. Они также записаны в журнал сообщений QGIS.</translation>
+    </message>
+    <message>
         <location filename="../../gui/dlg_file_browser.py" line="145"/>
         <source>Color Ramp</source>
         <translation>Цветовая шкала</translation>
@@ -90,9 +100,14 @@
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="514"/>
-        <location filename="../../gui/dlg_file_browser.py" line="763"/>
+        <location filename="../../gui/dlg_file_browser.py" line="767"/>
         <source>{} installed</source>
         <translation>Установлено: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="789"/>
+        <source>{} change(s) could not be applied.</source>
+        <translation>Не удалось применить изменений: {}.</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="366"/>
@@ -135,12 +150,12 @@
         <translation>Удалить палитры ({}):</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="765"/>
+        <location filename="../../gui/dlg_file_browser.py" line="769"/>
         <source>{} removed</source>
         <translation>Удалено: {}</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="767"/>
+        <location filename="../../gui/dlg_file_browser.py" line="771"/>
         <source>{} errors</source>
         <translation>Ошибок: {}</translation>
     </message>
@@ -149,6 +164,26 @@
         <location filename="../../gui/dlg_file_browser.py" line="705"/>
         <source>... and {} more</source>
         <translation>... и ещё {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="747"/>
+        <source>Failed to import: {}</source>
+        <translation>Не удалось импортировать: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="749"/>
+        <source>Error installing {}: {}</source>
+        <translation>Ошибка при установке {}: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="756"/>
+        <source>Failed to remove: {}</source>
+        <translation>Не удалось удалить: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="758"/>
+        <source>Error removing {}: {}</source>
+        <translation>Ошибка при удалении {}: {}</translation>
     </message>
 </context>
 <context>

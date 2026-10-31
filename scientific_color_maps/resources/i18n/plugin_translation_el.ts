@@ -64,6 +64,16 @@
         <translation>Επιβεβαίωση αλλαγών</translation>
     </message>
     <message>
+        <location filename="../../gui/dlg_file_browser.py" line="787"/>
+        <source>Some changes could not be applied</source>
+        <translation>Ορισμένες αλλαγές δεν εφαρμόστηκαν</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="791"/>
+        <source>See the details below. They are also written to the QGIS log panel.</source>
+        <translation>Δείτε τις λεπτομέρειες παρακάτω. Καταγράφονται επίσης στο πλαίσιο καταγραφής του QGIS.</translation>
+    </message>
+    <message>
         <location filename="../../gui/dlg_file_browser.py" line="145"/>
         <source>Color Ramp</source>
         <translation>Χρωματική κλίμακα</translation>
@@ -90,9 +100,14 @@
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="514"/>
-        <location filename="../../gui/dlg_file_browser.py" line="763"/>
+        <location filename="../../gui/dlg_file_browser.py" line="767"/>
         <source>{} installed</source>
         <translation>{} εγκατεστημένες</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="789"/>
+        <source>{} change(s) could not be applied.</source>
+        <translation>{} αλλαγές δεν εφαρμόστηκαν.</translation>
     </message>
     <message>
         <location filename="../../gui/dlg_file_browser.py" line="366"/>
@@ -135,12 +150,12 @@
         <translation>Αφαίρεση {} παλετών:</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="765"/>
+        <location filename="../../gui/dlg_file_browser.py" line="769"/>
         <source>{} removed</source>
         <translation>{} αφαιρέθηκαν</translation>
     </message>
     <message>
-        <location filename="../../gui/dlg_file_browser.py" line="767"/>
+        <location filename="../../gui/dlg_file_browser.py" line="771"/>
         <source>{} errors</source>
         <translation>{} σφάλματα</translation>
     </message>
@@ -149,6 +164,26 @@
         <location filename="../../gui/dlg_file_browser.py" line="705"/>
         <source>... and {} more</source>
         <translation>... και {} ακόμη</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="747"/>
+        <source>Failed to import: {}</source>
+        <translation>Αποτυχία εισαγωγής: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="749"/>
+        <source>Error installing {}: {}</source>
+        <translation>Σφάλμα κατά την εγκατάσταση του {}: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="756"/>
+        <source>Failed to remove: {}</source>
+        <translation>Αποτυχία αφαίρεσης: {}</translation>
+    </message>
+    <message>
+        <location filename="../../gui/dlg_file_browser.py" line="758"/>
+        <source>Error removing {}: {}</source>
+        <translation>Σφάλμα κατά την αφαίρεση του {}: {}</translation>
     </message>
 </context>
 <context>

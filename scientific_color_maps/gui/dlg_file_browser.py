@@ -744,20 +744,24 @@ class ColorRampBrowserDialog(QDialog):
                     )
                     installed_count += 1
                 else:
-                    errors.append(f"Failed to import: {ramp_name}")
+                    errors.append(self.tr("Failed to import: {}").format(ramp_name))
             except Exception as e:
-                errors.append(f"Error installing {ramp_name}: {e}")
+                errors.append(self.tr("Error installing {}: {}").format(ramp_name, e))
 
         for ramp_name in to_remove:
             try:
                 if self.style.removeColorRamp(ramp_name):
                     removed_count += 1
                 else:
-                    errors.append(f"Failed to remove: {ramp_name}")
+                    errors.append(self.tr("Failed to remove: {}").format(ramp_name))
             except Exception as e:
-                errors.append(f"Error removing {ramp_name}: {e}")
+                errors.append(self.tr("Error removing {}: {}").format(ramp_name, e))
 
-        # Report results
+        # Refresh the list from the style FIRST: load_xml_files() rewrites the
+        # status label, so the report below must come after it to stay visible.
+        self.load_xml_files()
+
+        # Report results in the status label
         status_parts = []
         if installed_count > 0:
             status_parts.append("✓ " + self.tr("{} installed").format(installed_count))
@@ -765,10 +769,27 @@ class ColorRampBrowserDialog(QDialog):
             status_parts.append("✓ " + self.tr("{} removed").format(removed_count))
         if errors:
             status_parts.append("⚠ " + self.tr("{} errors").format(len(errors)))
-            for err in errors:
-                print(f"ERROR: {err}")
-
         if status_parts:
             self.status_label.setText(" — ".join(status_parts))
 
-        self.load_xml_files()
+        # Errors: QGIS log panel (plugin tab) + a warning box with the details
+        if errors:
+            for err in errors:
+                self.log(message=err, log_level=Qgis.MessageLevel.Warning)
+            self.show_errors(errors)
+
+    def show_errors(self, errors: list):
+        """Show the list of failed operations in a warning dialog.
+
+        :param errors: translated error messages, one per failed operation
+        """
+        msg_box = QMessageBox(self)
+        msg_box.setWindowTitle(self.tr("Some changes could not be applied"))
+        msg_box.setIcon(QMessageBox.Icon.Warning)
+        msg_box.setText(self.tr("{} change(s) could not be applied.").format(len(errors)))
+        msg_box.setInformativeText(
+            self.tr("See the details below. They are also written to the QGIS log panel.")
+        )
+        msg_box.setDetailedText("\n".join(errors))
+        msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+        msg_box.exec()
