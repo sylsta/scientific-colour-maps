@@ -16,8 +16,8 @@ sync_with_github:
     - echo "$GITHUB_SSH_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan github.com >> ~/.ssh/known_hosts
-    - git config --global user.email "sylvain"
-    - git config --global user.name "GitLab CI"
+    - git config --global user.email "sylvain.thery@cnrs.fr"
+    - git config --global user.name "via GitLab CI"
   script:
     - git clone --mirror https://gitlab.huma-num.fr/sthery/scientific-colour-maps.git
     - cd scientific-colour-maps.git
