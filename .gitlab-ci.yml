@@ -1,6 +1,5 @@
 stages:
   - github_sync
-  - crowdin
 
 variables:
   GIT_SUBMODULE_STRATEGY: none
