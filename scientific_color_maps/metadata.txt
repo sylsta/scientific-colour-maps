@@ -82,8 +82,8 @@ tags=Scientific Color Maps V8, Palette, Fabio Crameri, Color Map, Style Manager
 author=Sylvain Théry - CNRS - UMR 5281 ART-Dev
 email=sylvain.thery@cnrs.fr
 homepage=https://www.fabiocrameri.ch/colourmaps/
-repository=https://gitlab.huma-num.fr/sthery/scientific-colour-maps/
-tracker=https://gitlab.huma-num.fr/sthery/scientific-colour-maps/-/issues
+repository=https://github.com/sylsta/scientific-colour-maps/
+tracker=https://github.com/sylsta/scientific-colour-maps/issues
 
 # QGIS context
 deprecated=False
@@ -92,7 +92,7 @@ qgisMinimumVersion=3.40
 qgisMaximumVersion=4.99
 
 # versioning
-version=1.2.14
+version=1.2.15
 changelog=
     1.1 (2026-04-23)
         - fix code according to flake8
