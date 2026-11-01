@@ -1,7 +1,7 @@
 #! python3  # noqa: E265
 
 # ----------------------------------------------------------
-# Copyright (C) 2015 Martin Dobias
+# Sylvain Théry - CNRS - UMR 5281 ART-Dev
 # ----------------------------------------------------------
 # Licensed under the terms of GNU GPL 2
 #
