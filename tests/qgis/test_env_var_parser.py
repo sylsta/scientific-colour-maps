@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from my_awesome_plugin.toolbelt.env_var_parser import EnvVarParser
+from scientific_color_maps.toolbelt.env_var_parser import EnvVarParser
 
 
 class TestEnvVarParser(unittest.TestCase):

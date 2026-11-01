@@ -47,11 +47,11 @@ It's recommended to create a dedicated QGIS profile for the development of the p
 
     ```sh
     # Linux
-    qgis --profile plg_my_awesome_plugin
+    qgis --profile plg_scientific_color_maps
     # Windows - OSGeo4W Shell
-    qgis-ltr --profile plg_my_awesome_plugin
+    qgis-ltr --profile plg_scientific_color_maps
     # Windows - PowerShell opened in the QGIS installation directory
-    PS C:\Program Files\QGIS 3.40.4\LTR\bin> .\qgis-ltr-bin.exe --profile plg_my_awesome_plugin
+    PS C:\Program Files\QGIS 3.40.4\LTR\bin> .\qgis-ltr-bin.exe --profile plg_scientific_color_maps
     ```
 
 1. Then, set the `QGIS_PLUGINPATH` environment variable to the path of the plugin in profile preferences:

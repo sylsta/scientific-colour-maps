@@ -1,8 +1,7 @@
 #! python3  # noqa: E265
 
 """Main plugin module."""
-import os
-from configparser import ConfigParser
+
 # standard
 from functools import partial
 from pathlib import Path
@@ -26,6 +25,7 @@ from scientific_color_maps.__about__ import (
     __icon_path__,
     __title__,
     __uri_homepage__,
+    __version__,
 )
 from scientific_color_maps.gui.dlg_settings import PlgOptionsFactory
 from scientific_color_maps.gui.dlg_file_browser import ColorRampBrowserDialog
@@ -54,18 +54,19 @@ class ScientificColorMap:
         self.style_signals = ()
         self.style_sync_pending = False
 
-        # initialize plugin directory
-        self.plugin_dir = os.path.dirname(__file__)
-        # print version number
-        config = ConfigParser()
-        config.read(f'{self.plugin_dir}/metadata.txt')
-        print(f"{config.get('general', 'name')} {config.get('general', 'version')} loaded")
-
         # translation
         # initialize the locale
         self.locale: str = QgsSettings().value("locale/userLocale", QLocale().name())[0:2]
-        locale_path: Path = (DIR_PLUGIN_ROOT / "resources" / "i18n" / f"plugin_translation_{self.locale}.qm")
-        self.log(message=f"Translation: {self.locale}, {locale_path}", log_level=Qgis.MessageLevel.Critical)
+        locale_path: Path = (
+            DIR_PLUGIN_ROOT / "resources" / "i18n" / f"plugin_translation_{self.locale}.qm"
+        )
+
+        # Info level: only written to the QGIS log panel in debug mode
+        self.log(
+            message=f"{__title__} {__version__} loaded - translation: {self.locale}, "
+            f"{locale_path} ({'found' if locale_path.exists() else 'not found'})",
+            log_level=Qgis.MessageLevel.Info,
+        )
 
         if locale_path.exists():
             self.translator = QTranslator()
@@ -247,21 +248,3 @@ class ScientificColorMap:
         self.file_browser_dialog.show()
         self.file_browser_dialog.raise_()
         self.file_browser_dialog.activateWindow()
-
-    def run(self):
-        """Main process.
-
-        :raises Exception: if there is no item in the feed
-        """
-        try:
-            self.log(
-                message=self.tr("Everything ran OK."),
-                log_level=Qgis.MessageLevel.Success,
-                push=False,
-            )
-        except Exception as err:
-            self.log(
-                message=self.tr("Houston, we've got a problem: {}").format(err),
-                log_level=Qgis.MessageLevel.Critical,
-                push=True,
-            )

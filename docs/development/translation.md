@@ -19,19 +19,19 @@ sudo apt install qttools5-dev-tools
 1. Update `.ts` files:
 
     ```bash
-    pylupdate5 -noobsolete -verbose my_awesome_plugin/resources/i18n/plugin_translation.pro
+    pylupdate5 -noobsolete -verbose scientific_color_maps/resources/i18n/plugin_translation.pro
     ```
 
 1. Translate your text using QLinguist or directly into `.ts` files. Launching it through command-line is possible:
 
     ```bash
-    linguist my_awesome_plugin/resources/i18n/*.ts
+    linguist scientific_color_maps/resources/i18n/*.ts
     ```
 
 1. Compile it:
 
     ```bash
-    lrelease my_awesome_plugin/resources/i18n/*.ts
+    lrelease scientific_color_maps/resources/i18n/*.ts
     ```
 
 ## Notes

@@ -1,26 +1,26 @@
 PLUGINNAME = scientific_color_maps
 VERSION = $(shell sed -n 's/version=//p' $(PLUGINNAME)/metadata.txt)
 ZIPFILE = $(PLUGINNAME).$(VERSION).zip
-.PHONY: help pylint pep8 zip
+.PHONY: help pylint pep8 flake zip
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  pep8        check Python code with pep8"
+	@echo "  pep8        check Python code with pycodestyle (formerly pep8)"
 	@echo "  pylint      check Python code with pylint"
-	@cho  "  flake       check Python code with flake8"
+	@echo "  flake       check Python code with flake8"
 	@echo "  zip         build zip package"
 
 
 pep8:
-	@pep8 --config=pep8 *.py
+	@pycodestyle --max-line-length=100 $(PLUGINNAME)
 
 
 pylint:
-	@pylint --disable=C0103,C0415,E0401,R0903,W0201 *.py
+	@pylint --disable=C0103,C0415,E0401,R0903,W0201 $(PLUGINNAME)
 
 
 flake:
-	@flake8 *py
+	@flake8 $(PLUGINNAME)
 
 
 zip:

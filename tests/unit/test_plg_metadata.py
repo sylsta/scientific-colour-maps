@@ -18,7 +18,7 @@ from pathlib import Path
 from packaging.version import parse
 
 # project
-from my_awesome_plugin import __about__
+from scientific_color_maps import __about__
 
 # ############################################################################
 # ########## Classes #############
