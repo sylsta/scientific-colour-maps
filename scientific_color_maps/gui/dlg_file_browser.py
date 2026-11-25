@@ -103,7 +103,11 @@ class ColorRampBrowserDialog(QDialog):
 
         # Separator
         separator = QFrame()
-        separator.setFrameShape(QFrame.HLine)
+        separator = QFrame()
+        separator = QFrame()
+        separator = QFrame()
+        # separator.setFrameShape(QFrame.HLine) #./
+        separator.setFrameShape(QFrame.Shape.HLine)
         separator.setStyleSheet("background-color: #bdc3c7;")
         separator.setFixedHeight(1)
         layout.addWidget(separator)
