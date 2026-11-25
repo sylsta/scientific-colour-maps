@@ -3,3 +3,5 @@
 *.patch
 *.kate-swp
 
+__pycache__/
+*.py[cod]
