@@ -13,7 +13,7 @@ sys.path.insert(0, path.abspath(".."))  # move into project package
 import sphinx_rtd_theme  # noqa: F401 theme of Read the Docs
 
 # Package
-from my_awesome_plugin import __about__
+from scientific_color_maps import __about__
 
 # -- Build environment -----------------------------------------------------
 on_rtd = environ.get("READTHEDOCS", None) == "True"

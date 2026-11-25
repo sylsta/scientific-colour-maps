@@ -1,31 +1,9 @@
 #!/usr/bin/bash
 # -*- encoding: UTF-8 -*-
-DIRECTORY=../..
-PREFIX="plugin_translation"
-I18N_LIST="ar es fr pt ru zh it gr"
-FORMS="FORMS = "
-SOURCES="SOURCES = "
-TRANSLATIONS="TRANSLATIONS = "
-for f in $DIRECTORY/resources/gui/*.gui; do
-    FORMS="${FORMS} ${f}"
-done
-for f in $DIRECTORY/*.py; do
-    echo $f
-    if [[ "${f}" != "../__init__.py" ]] && [[ "${f}" != "../resources.py" ]]; then
-        SOURCES="${SOURCES} ${f}"
-    fi
-done
-for f in $DIRECTORY/gui/*.py; do
-    echo $f
-    if [[ "${f}" != "../__init__.py" ]] && [[ "${f}" != "../resources.py" ]]; then
-        echo "2- ${f}"
-        SOURCES="${SOURCES} ${f}"
-    fi
-done
-for e in $I18N_LIST; do    
-    TRANSLATIONS="${TRANSLATIONS} ${PREFIX}_${e}.ts"
-done  
-echo $FORMS >"${PREFIX}.pro"
-echo $SOURCES >>"${PREFIX}.pro"
-echo $TRANSLATIONS >>"${PREFIX}.pro"
-echo ${SOURCES}
+
+# generate the translation profile (plugin_translation.pro) listing Python sources,
+# Qt Designer forms (*.ui) and translation files (*.ts), with paths relative to
+# this directory. Delegates to scripts/generate_translation_profile.py, which must
+# be run from the repository root.
+
+cd "$(dirname "$0")/../../.." && python3 scripts/generate_translation_profile.py

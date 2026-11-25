@@ -105,7 +105,7 @@ class PlgOptionsManager:
         if not hasattr(PlgSettingsStructure, key):
             log_hdlr.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
-                    ",".join(PlgSettingsStructure._fields)
+                    ",".join(f.name for f in fields(PlgSettingsStructure))
                 ),
                 log_level=Qgis.MessageLevel.Warning,
             )
@@ -142,7 +142,7 @@ class PlgOptionsManager:
         if not hasattr(PlgSettingsStructure, key):
             log_hdlr.PlgLogger.log(
                 message="Bad settings key. Must be one of: {}".format(
-                    ",".join(PlgSettingsStructure._fields)
+                    ",".join(f.name for f in fields(PlgSettingsStructure))
                 ),
                 log_level=Qgis.MessageLevel.Critical,
             )

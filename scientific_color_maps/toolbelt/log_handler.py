@@ -16,6 +16,23 @@ import scientific_color_maps.toolbelt.preferences as plg_prefs_hdlr
 from scientific_color_maps.__about__ import __title__
 
 # ############################################################################
+# ########## Functions #############
+# ##################################
+
+
+def _level_to_int(log_level) -> int:
+    """Return the integer value of a Qgis.MessageLevel (or of a legacy int).
+
+    Works with sip enums (PyQt5 / QGIS 3) as well as Python enums
+    (PyQt6 / QGIS 4), where int() may not be supported directly.
+    """
+    try:
+        return int(log_level)
+    except TypeError:
+        return int(log_level.value)
+
+
+# ############################################################################
 # ########## Classes ###############
 # ##################################
 
@@ -120,14 +137,17 @@ class PlgLogger(logging.Handler):
             )
             log(message="Plugin loaded - TEST", log_level=Qgis.MessageLevel.NoLevel, push=0)
         """
+        # Work on a plain integer for comparisons and arithmetic: under PyQt6
+        # (QGIS 4) enums are no longer guaranteed to behave like ints.
+        level_value = _level_to_int(log_level)
+
         # if not debug mode and not push, let's ignore INFO, SUCCESS and TEST
         debug_mode = plg_prefs_hdlr.PlgOptionsManager.get_plg_settings().debug_mode
-        if not debug_mode and not push and (log_level < 1 or log_level > 2):
+        if not debug_mode and not push and (level_value < 1 or level_value > 2):
             return
 
-        # if log_level is an int, convert it to Qgis.MessageLevel
-        if isinstance(log_level, int):
-            log_level = Qgis.MessageLevel(log_level)
+        # always hand a real Qgis.MessageLevel to the QGIS API
+        log_level = Qgis.MessageLevel(level_value)
 
         # ensure message is a string
         if not isinstance(message, str):
@@ -158,7 +178,7 @@ class PlgLogger(logging.Handler):
 
             # calc duration
             if duration is None:
-                duration = (log_level + 1) * 3
+                duration = (level_value + 1) * 3
 
             # create message with/out a widget
             if button:

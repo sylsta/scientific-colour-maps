@@ -18,8 +18,8 @@ from unittest.mock import patch
 from qgis.testing import unittest
 
 # project
-from my_awesome_plugin.__about__ import __version__
-from my_awesome_plugin.toolbelt.preferences import (
+from scientific_color_maps.__about__ import __version__
+from scientific_color_maps.toolbelt.preferences import (
     PREFIX_ENV_VARIABLE,
     PlgOptionsManager,
     PlgSettingsStructure,
